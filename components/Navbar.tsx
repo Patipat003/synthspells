@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="bg-purple-800 text-white px-4 py-2">
       <div className="flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold">Home</Link>
+        <Link href="/" className="text-2xl font-bold">SynthSpells</Link>
         <div className="flex items-center gap-6">
           
           <Link href="/playlist" className="text-2xl font-bold">Playlist</Link>
