@@ -100,7 +100,7 @@ export default function HomePage() {
         <div className="w-full max-w-2xl mx-auto mb-6">
           <Textarea
             className="h-40 w-full resize-none bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500"
-            placeholder="Describe your mood, activity, or vibe... &#10;&#10;Examples:&#10;• Studying late at night with rain outside&#10;• Relaxing Sunday morning with coffee&#10;• Working out but chill vibes&#10;• Nostalgic summer evening"
+            placeholder="Describe your vibe…  (e.g. chill rain, study mode, summer walk)"
             value={prompt}
             onChange={(e) => {
               setPrompt(e.target.value)
@@ -148,8 +148,7 @@ export default function HomePage() {
         </button>
 
         <div className="mt-8 text-gray-400 text-sm">
-          <p>Powered by OpenAI • Creates 5 curated lofi/chill songs</p>
-          <p className="mt-1">Press Enter to generate or Shift+Enter for new line</p>
+          <p>• Powered by OpenAI </p>
         </div>
       </div>
     </div>
