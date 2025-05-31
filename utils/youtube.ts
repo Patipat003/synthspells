@@ -1,34 +1,23 @@
-export async function searchYouTube(query: string): Promise<{ videoId: string; thumbnail: string } | null> {
+export async function searchYouTube(query: string): Promise<{ videoId: string; thumbnail: string }> {
   const apiKey = process.env.YOUTUBE_API_KEY;
-  if (!apiKey) return null;
+  if (!apiKey) return { videoId: 'O48gok_FLCg', thumbnail: '' };
 
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=${encodeURIComponent(query)}&key=${apiKey}`;
+  console.log("YouTube search URL:", url);
   try {
     const res = await fetch(url);
-    if (!res.ok) return null;
+    if (!res.ok) return { videoId: '', thumbnail: '' };
     const data = await res.json();
 
     const item = data.items?.[0];
-    if (!item || !item.id?.videoId) return null;
+    if (!item || !item.id?.videoId) return { videoId: '', thumbnail: '' };
 
     return {
-      videoId: item.id.videoId,
+      videoId: item.id.videoId || 'O48gok_FLCg',
       thumbnail: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url || '',
     };
   } catch (error) {
     console.error("YouTube search error:", error);
-    return null;
+    return { videoId: 'O48gok_FLCg', thumbnail: '' };
   }
-}
-
-export const fallbackVideoIds = [
-  '5qap5aO4i9A',
-  'jfKfPfyJRdk',
-  'DWcJFNfaw9c',
-  'lTRiuFIWV54',
-  'tJYLxjInP0g',
-];
-
-export function getRandomFallbackVideoId(): string {
-  return fallbackVideoIds[Math.floor(Math.random() * fallbackVideoIds.length)];
 }

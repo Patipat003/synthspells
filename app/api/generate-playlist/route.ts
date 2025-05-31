@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
-import { searchYouTube, getRandomFallbackVideoId } from '@/utils/youtube';
+import { searchYouTube } from '@/utils/youtube';
 
 interface Song {
   title: string;
@@ -58,8 +58,8 @@ export async function POST(req: Request) {
         return {
           title,
           artist,
-          videoId: result?.videoId || getRandomFallbackVideoId(),
-          thumbnail: result?.thumbnail || 'https://i.ytimg.com/vi/5qap5aO4i9A/hqdefault.jpg',
+          videoId: result?.videoId,
+          thumbnail: result?.thumbnail,
         };
       })
     );

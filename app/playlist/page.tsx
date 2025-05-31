@@ -214,16 +214,26 @@ export default function PlaylistPage() {
     }
   }
 
-  // ปิดการทำงานของ handleNext - ไม่ให้ข้ามเพลง
   const handleNext = () => {
-    // ปิดการทำงาน - ไม่ทำอะไร
-    return
+  if (shuffle) {
+    let nextIndex = Math.floor(Math.random() * songs.length)
+    // ถ้าสุ่มได้เพลงเดิม ให้สุ่มใหม่ (ถ้ามีหลายเพลง)
+    if (songs.length > 1) {
+      while (nextIndex === currentSongIndex) {
+        nextIndex = Math.floor(Math.random() * songs.length)
+      }
+    }
+    setCurrentSongIndex(nextIndex)
+  } else {
+    // ถ้าไม่ shuffle ไปเพลงถัดไปปกติ
+    setCurrentSongIndex((prev) => (prev + 1) % songs.length)
   }
+  setIsPlaying(true)
+}
 
-  // ปิดการทำงานของ handlePrevious - ไม่ให้ข้ามเพลง
   const handlePrevious = () => {
-    // ปิดการทำงาน - ไม่ทำอะไร
-    return
+    setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length)
+    setIsPlaying(true)
   }
 
   const handleSelectSong = (index: number) => {
@@ -327,6 +337,7 @@ export default function PlaylistPage() {
             {/* Center Controls */}
             <div className="flex items-center space-x-6">
               <button
+                type="button"
                 onClick={() => setShuffle(!shuffle)}
                 className={`p-2 rounded-full transition-all duration-200 opacity-50 cursor-not-allowed ${
                   shuffle 
@@ -340,6 +351,7 @@ export default function PlaylistPage() {
               </button>
               
               <button
+                type="button"
                 onClick={handlePrevious}
                 className="p-2 text-gray-400 opacity-50 cursor-not-allowed transition-colors"
                 title="Previous (Disabled)"
@@ -349,6 +361,7 @@ export default function PlaylistPage() {
               </button>
               
               <button
+                type="button"
                 onClick={handlePlayPause}
                 className="p-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
                 title={isPlaying ? "Pause" : "Play"}
@@ -357,6 +370,7 @@ export default function PlaylistPage() {
               </button>
               
               <button
+                type="button"
                 onClick={handleNext}
                 className="p-2 text-gray-400 opacity-50 cursor-not-allowed transition-colors"
                 title="Next (Disabled)"
@@ -366,6 +380,7 @@ export default function PlaylistPage() {
               </button>
               
               <button
+                type="button"
                 onClick={() => setRepeat(!repeat)}
                 className={`p-2 rounded-full transition-all duration-200 opacity-50 cursor-not-allowed ${
                   repeat 
