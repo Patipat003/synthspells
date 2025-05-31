@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
       <html lang="en" suppressHydrationWarning>
         <head>
-          <title>Synth Spells</title>
+          <title>SynthSpells</title>
           <meta name="description" content="SynthSpells" />
           <link rel="icon" href="/favicon.ico" />
         </head>
