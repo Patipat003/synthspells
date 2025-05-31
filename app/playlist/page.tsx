@@ -24,7 +24,7 @@ type Song = {
 }
 
 const defaultSongs: Song[] = [
-  { title: "Die With A Smile", artist: "Lady Gaga", videoId: "RVDCeVG90Rg" },
+  { title: "OMG", artist: "NewJeans", videoId: "sVTy_wmn5SU" },
 ]
 
 declare global {
@@ -98,6 +98,71 @@ export default function PlaylistPage() {
     }
   }, [])
 
+  // Auto-play next song function - ใช้ useRef เพื่อเข้าถึง state ล่าสุด
+  const shuffleRef = useRef(shuffle)
+  const repeatRef = useRef(repeat)
+  const songsRef = useRef(songs)
+  const currentSongIndexRef = useRef(currentSongIndex)
+
+  // อัพเดท refs เมื่อ state เปลี่ยน
+  useEffect(() => {
+    shuffleRef.current = shuffle
+  }, [shuffle])
+
+  useEffect(() => {
+    repeatRef.current = repeat
+  }, [repeat])
+
+  useEffect(() => {
+    songsRef.current = songs
+  }, [songs])
+
+  useEffect(() => {
+    currentSongIndexRef.current = currentSongIndex
+  }, [currentSongIndex])
+
+  const playNextSong = () => {
+    console.log('Playing next song...', { 
+      repeat: repeatRef.current, 
+      shuffle: shuffleRef.current,
+      currentIndex: currentSongIndexRef.current,
+      totalSongs: songsRef.current.length
+    })
+
+    if (repeatRef.current) {
+      // ถ้าเปิด repeat ให้เล่นเพลงเดิมซ้ำ
+      try {
+        console.log('Repeating current song')
+        setTimeout(() => {
+          playerRef.current?.seekTo(0)
+          playerRef.current?.playVideo()
+          setIsPlaying(true)
+        }, 500)
+      } catch (error) {
+        console.warn('Error repeating song:', error)
+      }
+      return
+    }
+
+    if (shuffleRef.current) {
+      // ถ้าเปิด shuffle ให้สุ่มเพลงถัดไป
+      let nextIndex = Math.floor(Math.random() * songsRef.current.length)
+      if (songsRef.current.length > 1) {
+        while (nextIndex === currentSongIndexRef.current) {
+          nextIndex = Math.floor(Math.random() * songsRef.current.length)
+        }
+      }
+      console.log('Shuffling to song index:', nextIndex)
+      setCurrentSongIndex(nextIndex)
+    } else {
+      // เล่นเพลงถัดไปตามลำดับ
+      const nextIndex = (currentSongIndexRef.current + 1) % songsRef.current.length
+      console.log('Playing next song in order:', nextIndex)
+      setCurrentSongIndex(nextIndex)
+    }
+    setIsPlaying(true)
+  }
+
   // Initialize YouTube player
   const initializePlayer = () => {
     if (!window.YT || !window.YT.Player || !playerContainerRef.current) return
@@ -130,9 +195,14 @@ export default function PlaylistPage() {
           },
           onStateChange: (event: any) => {
             try {
+              console.log('Player state changed:', event.data)
               if (event.data === window.YT.PlayerState.ENDED) {
-                // เมื่อเพลงจบให้หยุดเล่น ไม่ข้ามไปเพลงถัดไป
+                // เมื่อเพلงจบให้เล่นเพลงถัดไป
+                console.log('Song ended, playing next...')
                 setIsPlaying(false)
+                setTimeout(() => {
+                  playNextSong()
+                }, 1000) // รอ 1 วินาทีก่อนเล่นเพลงต่อไป
               } else if (event.data === window.YT.PlayerState.PLAYING) {
                 setIsPlaying(true)
               } else if (event.data === window.YT.PlayerState.PAUSED) {
@@ -144,7 +214,6 @@ export default function PlaylistPage() {
           },
           onError: (error: any) => {
             console.warn('YouTube player error:', error)
-            // เมื่อเกิด error ให้หยุดเล่น ไม่ข้ามไปเพลงถัดไป
             setIsPlaying(false)
             
             // แสดงข้อความแจ้งเตือนสำหรับข้อผิดพลาดต่างๆ
@@ -161,6 +230,12 @@ export default function PlaylistPage() {
             }
             
             alert(`${errorMessage}: ${currentSong.title}`)
+            
+            // ลองเล่นเพลงถัดไปเมื่อเกิด error
+            setTimeout(() => {
+              console.log('Error occurred, trying to play next song...')
+              playNextSong()
+            }, 2000)
           }
         },
       })
@@ -215,24 +290,36 @@ export default function PlaylistPage() {
   }
 
   const handleNext = () => {
-  if (shuffle) {
-    let nextIndex = Math.floor(Math.random() * songs.length)
-    // ถ้าสุ่มได้เพลงเดิม ให้สุ่มใหม่ (ถ้ามีหลายเพลง)
-    if (songs.length > 1) {
-      while (nextIndex === currentSongIndex) {
-        nextIndex = Math.floor(Math.random() * songs.length)
+    if (shuffle) {
+      let nextIndex = Math.floor(Math.random() * songs.length)
+      // ถ้าสุ่มได้เพลงเดิม ให้สุ่มใหม่ (ถ้ามีหลายเพลง)
+      if (songs.length > 1) {
+        while (nextIndex === currentSongIndex) {
+          nextIndex = Math.floor(Math.random() * songs.length)
+        }
       }
+      setCurrentSongIndex(nextIndex)
+    } else {
+      // ถ้าไม่ shuffle ไปเพลงถัดไปปกติ
+      setCurrentSongIndex((prev) => (prev + 1) % songs.length)
     }
-    setCurrentSongIndex(nextIndex)
-  } else {
-    // ถ้าไม่ shuffle ไปเพลงถัดไปปกติ
-    setCurrentSongIndex((prev) => (prev + 1) % songs.length)
+    setIsPlaying(true)
   }
-  setIsPlaying(true)
-}
 
   const handlePrevious = () => {
-    setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length)
+    if (shuffle) {
+      // ถ้าเปิด shuffle ให้สุ่มเพลงก่อนหน้า
+      let prevIndex = Math.floor(Math.random() * songs.length)
+      if (songs.length > 1) {
+        while (prevIndex === currentSongIndex) {
+          prevIndex = Math.floor(Math.random() * songs.length)
+        }
+      }
+      setCurrentSongIndex(prevIndex)
+    } else {
+      // ถ้าไม่ shuffle ไปเพลงก่อนหน้าปกติ
+      setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length)
+    }
     setIsPlaying(true)
   }
 
@@ -339,13 +426,12 @@ export default function PlaylistPage() {
               <button
                 type="button"
                 onClick={() => setShuffle(!shuffle)}
-                className={`p-2 rounded-full transition-all duration-200 opacity-50 cursor-not-allowed ${
+                className={`p-2 rounded-full transition-all duration-200 hover:scale-110 ${
                   shuffle 
                     ? "text-purple-400 bg-purple-400/20" 
-                    : "text-gray-400"
+                    : "text-gray-400 hover:text-white"
                 }`}
-                title="Shuffle (Disabled)"
-                disabled
+                title={shuffle ? "Disable Shuffle" : "Enable Shuffle"}
               >
                 <Shuffle className="w-4 h-4" />
               </button>
@@ -353,9 +439,8 @@ export default function PlaylistPage() {
               <button
                 type="button"
                 onClick={handlePrevious}
-                className="p-2 text-gray-400 opacity-50 cursor-not-allowed transition-colors"
-                title="Previous (Disabled)"
-                disabled
+                className="p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+                title="Previous Song"
               >
                 <SkipBack className="w-5 h-5" />
               </button>
@@ -372,9 +457,8 @@ export default function PlaylistPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="p-2 text-gray-400 opacity-50 cursor-not-allowed transition-colors"
-                title="Next (Disabled)"
-                disabled
+                className="p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+                title="Next Song"
               >
                 <SkipForward className="w-5 h-5" />
               </button>
@@ -382,13 +466,12 @@ export default function PlaylistPage() {
               <button
                 type="button"
                 onClick={() => setRepeat(!repeat)}
-                className={`p-2 rounded-full transition-all duration-200 opacity-50 cursor-not-allowed ${
+                className={`p-2 rounded-full transition-all duration-200 hover:scale-110 ${
                   repeat 
                     ? "text-purple-400 bg-purple-400/20" 
-                    : "text-gray-400"
+                    : "text-gray-400 hover:text-white"
                 }`}
-                title="Repeat (Disabled)"
-                disabled
+                title={repeat ? "Disable Repeat" : "Enable Repeat"}
               >
                 <Repeat className="w-4 h-4" />
               </button>
