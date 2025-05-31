@@ -8,8 +8,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
       <html lang="en" suppressHydrationWarning>
         <head>
-          <title>My App</title>
-          <meta name="description" content="This is my app" />
+          <title>Synth Spells</title>
+          <meta name="description" content="SynthSpells" />
           <link rel="icon" href="/favicon.ico" />
         </head>
         <body>
