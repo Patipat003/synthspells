@@ -36,7 +36,7 @@ const Navbar = () => {
           </Link>
           
           <Link 
-            href="/new" 
+            href="/" 
             className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group"
           >
             <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
@@ -72,7 +72,7 @@ const Navbar = () => {
             </Link>
             
             <Link 
-              href="/new" 
+              href="/" 
               className="flex items-center gap-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 px-3 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg group w-fit"
               onClick={() => setIsMenuOpen(false)}
             >
