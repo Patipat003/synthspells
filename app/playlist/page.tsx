@@ -13,7 +13,8 @@ import {
   Music,
   Clock,
   Heart,
-  MoreHorizontal
+  MoreHorizontal,
+  ListMusic
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -21,6 +22,12 @@ type Song = {
   title: string
   artist: string
   videoId: string
+  thumbnail?: string
+}
+
+type PlaylistInfo = {
+  title: string
+  thumbnail: string
 }
 
 const defaultSongs: Song[] = [
@@ -42,6 +49,7 @@ export default function PlaylistPage() {
   const [repeat, setRepeat] = useState(false)
   const [volume, setVolume] = useState(50)
   const [prompt, setPrompt] = useState("")
+  const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
   const playerRef = useRef<any>(null)
   const playerContainerRef = useRef<HTMLDivElement>(null)
@@ -90,6 +98,7 @@ export default function PlaylistPage() {
         if (data.songs && Array.isArray(data.songs) && data.songs.length > 0) {
           setSongs(data.songs)
           setPrompt(data.prompt || "")
+          setPlaylistInfo(data.playlistInfo || null)
           setCurrentSongIndex(0)
         }
       }
@@ -197,7 +206,7 @@ export default function PlaylistPage() {
             try {
               console.log('Player state changed:', event.data)
               if (event.data === window.YT.PlayerState.ENDED) {
-                // เมื่อเพلงจบให้เล่นเพลงถัดไป
+                // เมื่อเพลงจบให้เล่นเพลงถัดไป
                 console.log('Song ended, playing next...')
                 setIsPlaying(false)
                 setTimeout(() => {
@@ -220,16 +229,16 @@ export default function PlaylistPage() {
             let errorMessage = 'เกิดข้อผิดพลาดในการเล่นวิดีโอ'
             
             if (error.data === 2) {
-              errorMessage = 'Video ID ไม่ถูกต้อง'
+              errorMessage = 'Video ID Not correct'
             } else if (error.data === 5) {
-              errorMessage = 'ไม่รองรับการเล่นบน HTML5 player'
+              errorMessage = 'HTML5 player error'
             } else if (error.data === 100) {
-              errorMessage = 'ไม่พบวิดีโอหรือถูกลบแล้ว'
+              errorMessage = 'Not found - Video may have been removed or is private'
             } else if (error.data === 101 || error.data === 150) {
-              errorMessage = 'ผู้อัปโหลดไม่อนุญาตให้ฝังวิดีโอนี้'
+              errorMessage = 'Uploaders have disabled playback on other websites'
             }
             
-            alert(`${errorMessage}: ${currentSong.title}`)
+            alert(`${errorMessage}`)
             
             // ลองเล่นเพลงถัดไปเมื่อเกิด error
             setTimeout(() => {
@@ -328,14 +337,11 @@ export default function PlaylistPage() {
     setIsPlaying(true)
   }
 
-  const handleGoHome = () => {
-    router.push("/")
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="scale-90 max-w-6xl mx-auto pb-32">
         <div className="grid lg:grid-cols-3 gap-8">
           
           {/* Video Player - Larger */}
@@ -343,6 +349,35 @@ export default function PlaylistPage() {
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <div className="bg-black rounded-xl overflow-hidden mb-6" style={{ aspectRatio: '16/9' }}>
                 <div ref={playerContainerRef} id="youtube-player" className="w-full h-full"></div>
+              </div>
+              
+              {/* Current Song Info */}
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 flex-shrink-0">
+                  {currentSong.thumbnail ? (
+                    <img 
+                      src={currentSong.thumbnail} 
+                      alt={currentSong.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-white font-bold text-lg">
+                      {currentSongIndex + 1}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-white truncate">{currentSong.title}</h3>
+                  <p className="text-gray-400 truncate">{currentSong.artist}</p>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <span className="text-sm text-purple-400">Now Playing</span>
+                    <div className="flex space-x-1">
+                      <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                      <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse delay-75"></div>
+                      <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse delay-150"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -370,19 +405,29 @@ export default function PlaylistPage() {
                       onClick={() => handleSelectSong(index)}
                     >
                       <div className="flex items-center space-x-3">
-                        <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium ${
-                          index === currentSongIndex 
-                            ? "bg-gradient-to-br from-purple-500 to-pink-500 text-white" 
-                            : "bg-white/10 text-gray-300"
-                        }`}>
-                          {index === currentSongIndex && isPlaying ? (
-                            <div className="flex space-x-1">
-                              <div className="w-1 h-4 bg-white rounded-full animate-pulse"></div>
-                              <div className="w-1 h-4 bg-white rounded-full animate-pulse delay-75"></div>
-                              <div className="w-1 h-4 bg-white rounded-full animate-pulse delay-150"></div>
-                            </div>
+                        <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden">
+                          {song.thumbnail ? (
+                            <img 
+                              src={song.thumbnail} 
+                              alt={song.title}
+                              className="w-full h-full object-cover"
+                            />
                           ) : (
-                            index + 1
+                            <div className={`w-full h-full flex items-center justify-center text-sm font-medium ${
+                              index === currentSongIndex 
+                                ? "bg-gradient-to-br from-purple-500 to-pink-500 text-white" 
+                                : "bg-white/10 text-gray-300"
+                            }`}>
+                              {index === currentSongIndex && isPlaying ? (
+                                <div className="flex space-x-1">
+                                  <div className="w-1 h-4 bg-white rounded-full animate-pulse"></div>
+                                  <div className="w-1 h-4 bg-white rounded-full animate-pulse delay-75"></div>
+                                  <div className="w-1 h-4 bg-white rounded-full animate-pulse delay-150"></div>
+                                </div>
+                              ) : (
+                                index + 1
+                              )}
+                            </div>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -408,25 +453,36 @@ export default function PlaylistPage() {
 
       {/* Bottom Player Controls */}
       <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-xl border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Current Song Mini Info */}
-            <div className="flex items-center space-x-4 flex-1 min-w-0 max-w-sm">
-              <div className="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center font-bold">
-                {currentSongIndex + 1}
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0 max-w-xs sm:max-w-sm">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg overflow-hidden">
+                {currentSong.thumbnail ? (
+                  <img 
+                    src={currentSong.thumbnail} 
+                    alt={currentSong.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xs sm:text-sm">
+                    {currentSongIndex + 1}
+                  </div>
+                )}
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="font-medium truncate text-white">{currentSong.title}</div>
-                <div className="text-sm text-gray-400 truncate">{currentSong.artist}</div>
+              <div className="min-w-0 flex-1 hidden sm:block">
+                <div className="font-medium truncate text-white text-sm sm:text-base">{currentSong.title}</div>
+                <div className="text-xs sm:text-sm text-gray-400 truncate">{currentSong.artist}</div>
               </div>
             </div>
 
             {/* Center Controls */}
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
+              {/* Hide shuffle and repeat on mobile */}
               <button
                 type="button"
                 onClick={() => setShuffle(!shuffle)}
-                className={`p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+                className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
                   shuffle 
                     ? "text-purple-400 bg-purple-400/20" 
                     : "text-gray-400 hover:text-white"
@@ -439,34 +495,35 @@ export default function PlaylistPage() {
               <button
                 type="button"
                 onClick={handlePrevious}
-                className="p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+                className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
                 title="Previous Song"
               >
-                <SkipBack className="w-5 h-5" />
+                <SkipBack className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               
               <button
                 type="button"
                 onClick={handlePlayPause}
-                className="p-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+                className="p-3 sm:p-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
                 title={isPlaying ? "Pause" : "Play"}
               >
-                {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-1" />}
+                {isPlaying ? <Pause className="w-5 h-5 sm:w-6 sm:h-6" /> : <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 sm:ml-1" />}
               </button>
               
               <button
                 type="button"
                 onClick={handleNext}
-                className="p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+                className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
                 title="Next Song"
               >
-                <SkipForward className="w-5 h-5" />
+                <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               
+              {/* Hide repeat on mobile */}
               <button
                 type="button"
                 onClick={() => setRepeat(!repeat)}
-                className={`p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+                className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
                   repeat 
                     ? "text-purple-400 bg-purple-400/20" 
                     : "text-gray-400 hover:text-white"
@@ -478,20 +535,28 @@ export default function PlaylistPage() {
             </div>
 
             {/* Volume Control */}
-            <div className="flex items-center space-x-3 flex-1 justify-end max-w-sm">
-              <Volume2 className="w-5 h-5 text-gray-400" />
-              <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-1 justify-end max-w-xs sm:max-w-sm">
+              <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={volume}
                   onChange={(e) => setVolume(Number(e.target.value))}
-                  className="w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer slider"
+                  className="w-16 sm:w-20 lg:w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer slider"
                   title="Volume"
                 />
-                <span className="text-sm text-gray-400 w-8 text-right">{volume}</span>
+                <span className="text-xs sm:text-sm text-gray-400 w-6 sm:w-8 text-right">{volume}</span>
               </div>
+            </div>
+          </div>
+
+          {/* Mobile Song Info - Show only on mobile when song info is hidden */}
+          <div className="sm:hidden pt-2 border-t border-white/10 mt-2">
+            <div className="text-center">
+              <div className="font-medium text-white text-sm truncate">{currentSong.title}</div>
+              <div className="text-xs text-gray-400 truncate">{currentSong.artist}</div>
             </div>
           </div>
         </div>
