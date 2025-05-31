@@ -338,11 +338,11 @@ export default function PlaylistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    <div className="lg:max-h-screen min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
 
       {/* Main Content */}
-      <div className="scale-90 max-w-6xl mx-auto pb-32">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="scale-90 max-w-6xl mx-auto pb-24">
+        <div className="grid lg:grid-cols-3 gap-6">
           
           {/* Video Player - Larger */}
           <div className="lg:col-span-2">
