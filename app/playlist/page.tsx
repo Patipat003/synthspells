@@ -48,10 +48,10 @@ export default function PlaylistPage() {
 
   return (
     <div className="lg:max-h-screen min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
-      <div className="scale-90 max-w-6xl mx-auto pb-24">
-        <div className="grid lg:grid-cols-3 gap-6">
+      <div className="mx-auto max-w-6xl pt-6">
+        <div className="grid lg:grid-cols-7 gap-6 w-full">
           {/* Video Player */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-4">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <div className="bg-black rounded-xl overflow-hidden mb-6" style={{ aspectRatio: '16/9' }}>
                 <div ref={playerContainerRef} id="youtube-player" className="w-full h-full"></div>
@@ -60,7 +60,7 @@ export default function PlaylistPage() {
             </div>
           </div>
           {/* Playlist Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-3">
             <PlaylistSidebar
               songs={songs}
               currentSongIndex={currentSongIndex}

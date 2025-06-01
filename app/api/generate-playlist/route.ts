@@ -59,9 +59,15 @@ export async function POST(req: Request) {
 
     console.log('Found playlist:', playlistInfo.playlistTitle);
 
-    // Get songs from the playlist
-    const songs = await getPlaylistItems(playlistInfo.playlistId, 15);
-    
+    // ดึงเพลงจาก playlist (ควรให้ getPlaylistItems คืน viewCount มาด้วย)
+    const findsong = await getPlaylistItems(playlistInfo.playlistId, 15);
+
+    // เรียงเพลงจากคนดูมากสุดไปน้อยสุด
+    // สมมติว่าแต่ละ song มี property 'viewCount' เป็น number
+    const songs = findsong
+      .slice() // copy array
+      .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
+      
     if (songs.length === 0) {
       return NextResponse.json({ error: 'No songs found in playlist' }, { status: 404 });
     }
