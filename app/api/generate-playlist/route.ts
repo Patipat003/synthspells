@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     console.log('Found playlist:', playlistInfo.playlistTitle);
 
     // Get songs from the playlist
-    const songs = await getPlaylistItems(playlistInfo.playlistId, 10);
+    const songs = await getPlaylistItems(playlistInfo.playlistId, 20);
     
     if (songs.length === 0) {
       return NextResponse.json({ error: 'No songs found in playlist' }, { status: 404 });
