@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 import Navbar from "@/components/Navbar"
 import { ReactNode } from "react";
 import "./globals.css"
@@ -31,30 +33,21 @@ export const metadata = {
   },
 };
 
-
-const Layout = ({ children }: { children: ReactNode }) => {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <title>SynthSpells</title>
-          <meta name="description" content="Generate AI-powered YouTube playlists from your mood or prompt" />
-          <link rel="icon" href="/favicon.ico" />
-        </head>
-        <body>
-          
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-            <PetWidget />
-          </ThemeProvider>
-        </body>
-      </html>
-
-  )
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+          <PetWidget />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
-export default Layout
