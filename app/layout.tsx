@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar"
 import { ReactNode } from "react";
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import PetWidget from "@/components/PetWidget"
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -22,6 +22,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           >
             <Navbar />
             {children}
+            <PetWidget />
           </ThemeProvider>
         </body>
       </html>
