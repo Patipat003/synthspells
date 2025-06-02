@@ -127,14 +127,14 @@ export function useYouTubePlayer({
           onStateChange: (event: any) => {
             if (event.data === window.YT.PlayerState.ENDED) {
               setIsPlaying(false)
-              setTimeout(() => { playNextSong() }, 1000)
+              setTimeout(() => { playNextSong() }, 500)
             } else if (event.data === window.YT.PlayerState.PLAYING) {
               setIsPlaying(true)
             } else if (event.data === window.YT.PlayerState.PAUSED) {
               setIsPlaying(false)
             }
           },
-          onError: (error: any) => {
+          onError: () => {
             setIsPlaying(false)
             setTimeout(() => { playNextSong() }, 2000)
           }

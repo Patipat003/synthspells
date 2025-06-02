@@ -17,7 +17,7 @@ const defaultSongs: Song[] = [
   { title: "Fainted", artist: "Narvent", videoId: "dJWFUBAUM0E", thumbnail: "https://i.ytimg.com/vi/dJWFUBAUM0E/hqdefault.jpg" },
   { title: "Memory Reboot", artist: "Narvent", videoId: "mHSnuL-LGNU", thumbnail: "https://i.ytimg.com/vi/mHSnuL-LGNU/hqdefault.jpg" },
   { title: "Dream Space", artist: "DVRST", videoId: "dSPiDFZmAnQ", thumbnail: "https://i.ytimg.com/vi/dSPiDFZmAnQ/hqdefault.jpg" },
-  { title: "Close Eyes", artist: "DVRST", videoId: "OSbhFr5TzkQ", thumbnail: "https://i.ytimg.com/vi/OSbhFr5TzkQ/hqdefault.jpg" },
+  { title: "Close Eyes", artist: "DVRST", videoId: "ao4RCon11eY", thumbnail: "https://i.ytimg.com/vi/ao4RCon11eY/hqdefault.jpg" },
   { title: "After Dark", artist: "Mr.Kitty", videoId: "Cl5Vkd4N03Q", thumbnail: "https://i.ytimg.com/vi/Cl5Vkd4N03Q/hqdefault.jpg" },
   { title: "Drained", artist: "auritni", videoId: "95XmCt17-Dg", thumbnail: "https://i.ytimg.com/vi/95XmCt17-Dg/hqdefault.jpg" },
   { title: "TOKYO-3", artist: "auritni", videoId: "WCpir8ytV9Y", thumbnail: "https://i.ytimg.com/vi/WCpir8ytV9Y/hqdefault.jpg" },
