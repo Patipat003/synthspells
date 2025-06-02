@@ -19,17 +19,13 @@ export default function PlaylistPage() {
     setVolume,
     isPlaying,
     setIsPlaying,
-    playlistInfo,
-    prompt,
     handleSelectSong,
     handleNext,
     handlePrevious,
   } = usePlaylistState()
 
   const {
-    playerRef,
     playerContainerRef,
-    isPlayerReady,
     handlePlayPause,
   } = useYouTubePlayer({
     songs,

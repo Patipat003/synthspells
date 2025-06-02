@@ -35,7 +35,6 @@ export default function PetWidget() {
   return (
     <div className="fixed bottom-0 right-4 z-50">
       <div className="flex items-center space-x-3">
-        {/* Animated Character */}
         <div
           onClick={handlePet}
           onMouseEnter={() => setIsHovered(true)}
@@ -50,14 +49,12 @@ export default function PetWidget() {
             </div>
           )}
 
-          {/* Animated GIF */}
           <img 
             src="https://media.tenor.com/7lirhLLRJWAAAAAj/ai-hoshino-ai-dance.gif"
             alt="Animated character"
             className="w-14 h-14 object-cover"
           />
 
-          {/* Floating Hearts Animation */}
           {showHeart && (
             <>
               <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 animate-bounce text-red-500 text-2xl">
@@ -75,7 +72,6 @@ export default function PetWidget() {
             </>
           )}
 
-          {/* Sparkle Effects */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-300 rounded-full animate-ping opacity-75"></div>
             <div className="absolute top-2 right-0 w-1 h-1 bg-blue-300 rounded-full animate-pulse"></div>

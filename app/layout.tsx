@@ -1,5 +1,3 @@
-// app/layout.tsx
-
 import Navbar from "@/components/Navbar"
 import { ReactNode } from "react";
 import "./globals.css"

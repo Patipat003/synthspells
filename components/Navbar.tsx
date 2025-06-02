@@ -46,6 +46,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           onClick={toggleMenu}
           className="md:hidden p-2 hover:bg-purple-700/50 rounded-lg transition-colors duration-300"
           aria-label="Toggle menu"

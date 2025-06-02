@@ -59,12 +59,10 @@ export default function HomePage() {
       }
       localStorage.setItem("playlistData", JSON.stringify(playlistData))
 
-      // Navigate to playlist page
       router.push("/playlist")
     } catch (err: any) {
       console.error("Error generating playlist:", err)
       
-      // Handle specific error cases
       if (err.message.includes('404')) {
         setError("No suitable playlist found for your request. Try using different keywords or be more specific.")
       } else if (err.message.includes('quota')) {
@@ -139,6 +137,7 @@ export default function HomePage() {
 
         {/* Generate Button */}
         <button
+          type="button"
           onClick={handleGenerate}
           disabled={loading || !prompt.trim()}
           className={`w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-white font-semibold text-base sm:text-lg transition-all duration-200 ${

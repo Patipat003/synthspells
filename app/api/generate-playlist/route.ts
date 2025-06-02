@@ -1,14 +1,6 @@
-// app/api/playlist/route.ts
 import { NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
 import { searchYouTubePlaylist, getPlaylistItems } from '@/utils/youtube';
-
-interface Song {
-  title: string;
-  artist: string;
-  videoId: string;
-  thumbnail: string;
-}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -22,7 +14,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
-    // Ask OpenAI to create a search query for YouTube playlist
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       temperature: 0.7,
@@ -51,7 +42,6 @@ export async function POST(req: Request) {
 
     console.log('Generated search query:', searchQuery);
 
-    // Search for a playlist
     const playlistInfo = await searchYouTubePlaylist(searchQuery);
     if (!playlistInfo) {
       return NextResponse.json({ error: 'No playlist found' }, { status: 404 });
@@ -59,13 +49,10 @@ export async function POST(req: Request) {
 
     console.log('Found playlist:', playlistInfo.playlistTitle);
 
-    // ดึงเพลงจาก playlist (ควรให้ getPlaylistItems คืน viewCount มาด้วย)
     const findsong = await getPlaylistItems(playlistInfo.playlistId, 15);
 
-    // เรียงเพลงจากคนดูมากสุดไปน้อยสุด
-    // สมมติว่าแต่ละ song มี property 'viewCount' เป็น number
     const songs = findsong
-      .slice() // copy array
+      .slice()
       .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
       
     if (songs.length === 0) {

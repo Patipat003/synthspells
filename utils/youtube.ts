@@ -1,4 +1,3 @@
-// utils/youtube.ts
 export async function searchYouTubePlaylist(query: string): Promise<{ 
   playlistId: string; 
   playlistTitle: string; 
@@ -55,7 +54,6 @@ export async function getPlaylistItems(playlistId: string, maxResults: number = 
       const snippet = item.snippet;
       const title = snippet.title;
       
-      // Try to extract artist from title (common formats: "Artist - Title" or "Title - Artist")
       let artist = snippet.videoOwnerChannelTitle || 'Unknown Artist';
       let songTitle = title;
       
@@ -72,11 +70,10 @@ export async function getPlaylistItems(playlistId: string, maxResults: number = 
         artist: artist.replace(/\s*-\s*Topic$/, ''),
         videoId: snippet.resourceId?.videoId || '',
         thumbnail: snippet.thumbnails?.high?.url || snippet.thumbnails?.default?.url || '',
-        viewCount: 0, // จะอัปเดตทีหลัง
+        viewCount: 0,
       };
     }).filter((song: { videoId: string }) => song.videoId);
 
-    // ดึง viewCount ของแต่ละ videoId
     interface Song {
       title: string;
       artist: string;
@@ -102,11 +99,10 @@ export async function getPlaylistItems(playlistId: string, maxResults: number = 
           viewCountMap[video.id] = Number(video.statistics?.viewCount || 0);
         });
       } catch (err) {
-        // ignore error, keep viewCount = 0
+        console.error("YouTube video statistics error:", err);
       }
     }
 
-    // map viewCount กลับเข้าแต่ละเพลง
     return songs.map((song: Song) => ({
       ...song,
       viewCount: viewCountMap[song.videoId] ?? 0,
