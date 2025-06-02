@@ -28,7 +28,18 @@ const defaultSongs: Song[] = [
   { title: "SO TIRED", artist: "NUEKI", videoId: "turCAoWsH-U", thumbnail: "https://i.ytimg.com/vi/turCAoWsH-U/hqdefault.jpg" },
 ]
 
+// ฟังก์ชันสำหรับสุ่มลำดับเพลง
+const shuffleArray = <T>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export function usePlaylistState() {
+  // เริ่มต้นด้วยเพลง default ก่อน (ไม่สุ่ม)
   const [songs, setSongs] = useState<Song[]>(defaultSongs)
   const [currentSongIndex, setCurrentSongIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -37,24 +48,41 @@ export function usePlaylistState() {
   const [volume, setVolume] = useState(50)
   const [prompt, setPrompt] = useState("")
   const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null)
+  const [isClient, setIsClient] = useState(false)
 
-  // Load playlist from localStorage
+  // ตรวจสอบว่าอยู่ใน client หรือไม่
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("playlistData")
-      if (stored) {
-        const data = JSON.parse(stored)
-        if (data.songs && Array.isArray(data.songs) && data.songs.length > 0) {
-          setSongs(data.songs)
-          setPrompt(data.prompt || "")
-          setPlaylistInfo(data.playlistInfo || null)
-          setCurrentSongIndex(0)
-        }
-      }
-    } catch (error) {
-      console.error("Failed to load playlist from localStorage:", error)
-    }
+    setIsClient(true)
   }, [])
+
+  // Load และ shuffle เฉพาะใน client
+  useEffect(() => {
+    if (isClient) {
+      try {
+        const stored = localStorage.getItem("playlistData")
+        if (stored) {
+          const data = JSON.parse(stored)
+          if (data.songs && Array.isArray(data.songs) && data.songs.length > 0) {
+            // สุ่มเพลงที่โหลดจาก localStorage
+            setSongs(shuffleArray(data.songs))
+            setPrompt(data.prompt || "")
+            setPlaylistInfo(data.playlistInfo || null)
+            setCurrentSongIndex(0)
+          } else {
+            // ถ้าไม่มีเพลงใน localStorage ให้สุ่มเพลง default
+            setSongs(shuffleArray(defaultSongs))
+          }
+        } else {
+          // ถ้าไม่มี localStorage ให้สุ่มเพลง default
+          setSongs(shuffleArray(defaultSongs))
+        }
+      } catch (error) {
+        console.error("Failed to load playlist from localStorage:", error)
+        // ถ้าเกิดข้อผิดพลาด ให้สุ่มเพลง default
+        setSongs(shuffleArray(defaultSongs))
+      }
+    }
+  }, [isClient])
 
   const handleSelectSong = (index: number) => {
     setCurrentSongIndex(index)
@@ -105,7 +133,7 @@ export function usePlaylistState() {
     volume,
     setVolume,
     prompt,
-    playlistInfo,
+    isClient,
     handleSelectSong,
     handleNext,
     handlePrevious,

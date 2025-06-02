@@ -49,7 +49,7 @@ export default function PlaylistPage() {
           {/* Video Player */}
           <div className="lg:col-span-4">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="bg-black rounded-xl overflow-hidden mb-8" style={{ aspectRatio: '16/9' }}>
+              <div className="bg-black rounded-xl overflow-hidden mb-8 aspect-video">
                 <div ref={playerContainerRef} id="youtube-player" className="w-full h-full"></div>
               </div>
               <SongInfo currentSong={currentSong} currentSongIndex={currentSongIndex} isPlaying={isPlaying} />
