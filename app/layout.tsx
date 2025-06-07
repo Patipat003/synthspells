@@ -3,10 +3,28 @@ import { ReactNode } from "react";
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import PetWidget from "@/components/PetWidget"
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata:Metadata = {
   title: 'SynthSpells - AI Generated YouTube Playlists',
   description: 'Create YouTube playlists from vibes or moods with AI',
+  keywords: [
+    'AI',
+    'YouTube',
+    'Playlists',
+    'Music',
+    'Vibes',
+    'Mood',
+    'SynthSpells',
+    'Playlist Generator',
+    'AI Music',
+  ],
+  authors: [
+    {
+      name: 'SynthSpells',
+      url: 'https://synthspells.vercel.app/',
+    },
+  ],
   openGraph: {
     title: 'SynthSpells',
     description: 'AI Generated YouTube Playlists',
