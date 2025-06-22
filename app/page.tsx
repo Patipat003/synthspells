@@ -85,7 +85,7 @@ export default function HomePage() {
   const clearError = () => setError("")
 
   return (
-    <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+    <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
       <div className="w-full max-w-4xl">
         {/* Main Heading */}
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
