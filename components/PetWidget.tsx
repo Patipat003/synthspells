@@ -40,7 +40,7 @@ export default function PetWidget() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className={`cursor-pointer select-none relative transition-all duration-200 ${
-            isClicked ? 'scale-90' : 'hover:scale-110'
+            isClicked ? "scale-90" : "hover:scale-110"
           }`}
         >
           {isHovered && (
@@ -49,7 +49,7 @@ export default function PetWidget() {
             </div>
           )}
 
-          <img 
+          <img
             src="https://media.tenor.com/7lirhLLRJWAAAAAj/ai-hoshino-ai-dance.gif"
             alt="Animated character"
             className="w-14 h-14 object-cover"

@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Textarea } from "@/components/ui/textarea"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-  const [prompt, setPrompt] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const router = useRouter()
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleGenerate = async () => {
-    if (!prompt.trim() || loading) return
-    
-    setLoading(true)
-    setError("")
+    if (!prompt.trim() || loading) return;
+
+    setLoading(true);
+    setError("");
 
     try {
       const res = await fetch("/api/generate-playlist", {
@@ -23,31 +23,34 @@ export default function HomePage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ prompt: prompt.trim() }),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to generate playlist")
+        throw new Error(data.error || "Failed to generate playlist");
       }
 
       if (!data.songs || !Array.isArray(data.songs)) {
-        throw new Error("Invalid response format - no songs received")
+        throw new Error("Invalid response format - no songs received");
       }
 
       // ตรวจสอบว่าได้เพลงที่มี videoId มาจาก playlist
-      const validSongs = data.songs.filter((song: any) => 
-        song && 
-        typeof song.title === 'string' && 
-        typeof song.artist === 'string' && 
-        typeof song.videoId === 'string' &&
-        song.title.trim() && 
-        song.artist.trim() && 
-        song.videoId.trim()
-      )
+      const validSongs = data.songs.filter(
+        (song: any) =>
+          song &&
+          typeof song.title === "string" &&
+          typeof song.artist === "string" &&
+          typeof song.videoId === "string" &&
+          song.title.trim() &&
+          song.artist.trim() &&
+          song.videoId.trim()
+      );
 
       if (validSongs.length === 0) {
-        throw new Error("No playable songs found in the playlist. Please try a different prompt or be more specific.")
+        throw new Error(
+          "No playable songs found in the playlist. Please try a different prompt or be more specific."
+        );
       }
 
       // Store in localStorage พร้อมข้อมูล playlist
@@ -55,34 +58,38 @@ export default function HomePage() {
         songs: validSongs,
         prompt: prompt.trim(),
         playlistInfo: data.playlistInfo || null, // ข้อมูล playlist ที่ได้จาก YouTube
-        createdAt: new Date().toISOString()
-      }
-      localStorage.setItem("playlistData", JSON.stringify(playlistData))
+        createdAt: new Date().toISOString(),
+      };
+      localStorage.setItem("playlistData", JSON.stringify(playlistData));
 
-      router.push("/playlist")
+      router.push("/playlist");
     } catch (err: any) {
-      console.error("Error generating playlist:", err)
-      
-      if (err.message.includes('404')) {
-        setError("No suitable playlist found for your request. Try using different keywords or be more specific.")
-      } else if (err.message.includes('quota')) {
-        setError("Service temporarily unavailable. Please try again later.")
+      console.error("Error generating playlist:", err);
+
+      if (err.message.includes("404")) {
+        setError(
+          "No suitable playlist found for your request. Try using different keywords or be more specific."
+        );
+      } else if (err.message.includes("quota")) {
+        setError("Service temporarily unavailable. Please try again later.");
       } else {
-        setError(err.message || "An error occurred while generating the playlist")
+        setError(
+          err.message || "An error occurred while generating the playlist"
+        );
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleGenerate()
+      e.preventDefault();
+      handleGenerate();
     }
-  }
+  };
 
-  const clearError = () => setError("")
+  const clearError = () => setError("");
 
   return (
     <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
@@ -91,7 +98,7 @@ export default function HomePage() {
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
           AI Playlist Songs
         </h1>
-        
+
         {/* Subtitle Section */}
         <div className="mb-6 sm:mb-8 space-y-2 sm:space-y-4">
           <div className="text-purple-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
@@ -109,8 +116,8 @@ export default function HomePage() {
             placeholder="Describe your vibe…  (e.g. lofi hip hop for studying, 90s rock hits, jazz for relaxing)"
             value={prompt}
             onChange={(e) => {
-              setPrompt(e.target.value)
-              if (error) clearError()
+              setPrompt(e.target.value);
+              if (error) clearError();
             }}
             onKeyDown={handleKeyDown}
             maxLength={500}
@@ -125,7 +132,7 @@ export default function HomePage() {
           <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500 rounded-lg text-red-200 max-w-2xl mx-auto text-sm sm:text-base">
             <div className="flex justify-between items-start">
               <span className="flex-1 text-left">{error}</span>
-              <button 
+              <button
                 onClick={clearError}
                 className="ml-2 text-red-300 hover:text-red-100 flex-shrink-0 text-lg"
               >
@@ -149,7 +156,9 @@ export default function HomePage() {
           {loading ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-sm sm:text-base">Finding Perfect Playlist...</span>
+              <span className="text-sm sm:text-base">
+                Finding Perfect Playlist...
+              </span>
             </div>
           ) : (
             <span className="text-sm sm:text-base">🎵 Find Playlist</span>
@@ -162,5 +171,5 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

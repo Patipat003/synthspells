@@ -1,11 +1,19 @@
-import { Play, Pause, SkipForward, SkipBack, Shuffle, Repeat, Volume2 } from "lucide-react"
+import {
+  Play,
+  Pause,
+  SkipForward,
+  SkipBack,
+  Shuffle,
+  Repeat,
+  Volume2,
+} from "lucide-react";
 
 type Song = {
-  title: string
-  artist: string
-  videoId: string
-  thumbnail?: string
-}
+  title: string;
+  artist: string;
+  videoId: string;
+  thumbnail?: string;
+};
 
 export default function PlayerControls({
   currentSong,
@@ -21,18 +29,18 @@ export default function PlayerControls({
   volume,
   setVolume,
 }: {
-  currentSong: Song
-  currentSongIndex: number
-  isPlaying: boolean
-  handlePlayPause: () => void
-  handleNext: () => void
-  handlePrevious: () => void
-  shuffle: boolean
-  setShuffle: (b: boolean) => void
-  repeat: boolean
-  setRepeat: (b: boolean) => void
-  volume: number
-  setVolume: (v: number) => void
+  currentSong: Song;
+  currentSongIndex: number;
+  isPlaying: boolean;
+  handlePlayPause: () => void;
+  handleNext: () => void;
+  handlePrevious: () => void;
+  shuffle: boolean;
+  setShuffle: (b: boolean) => void;
+  repeat: boolean;
+  setRepeat: (b: boolean) => void;
+  volume: number;
+  setVolume: (v: number) => void;
 }) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-xl border-t border-white/10">
@@ -42,8 +50,8 @@ export default function PlayerControls({
           <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0 max-w-xs sm:max-w-sm">
             <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg overflow-hidden">
               {currentSong.thumbnail ? (
-                <img 
-                  src={currentSong.thumbnail} 
+                <img
+                  src={currentSong.thumbnail}
                   alt={currentSong.title}
                   className="w-full h-full object-cover"
                 />
@@ -54,8 +62,12 @@ export default function PlayerControls({
               )}
             </div>
             <div className="min-w-0 flex-1 hidden sm:block">
-              <div className="font-medium truncate text-white text-sm sm:text-base">{currentSong.title}</div>
-              <div className="text-xs sm:text-sm text-gray-400 truncate">{currentSong.artist}</div>
+              <div className="font-medium truncate text-white text-sm sm:text-base">
+                {currentSong.title}
+              </div>
+              <div className="text-xs sm:text-sm text-gray-400 truncate">
+                {currentSong.artist}
+              </div>
             </div>
           </div>
           {/* Center Controls */}
@@ -64,8 +76,8 @@ export default function PlayerControls({
               type="button"
               onClick={() => setShuffle(!shuffle)}
               className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
-                shuffle 
-                  ? "text-purple-400 bg-purple-400/20" 
+                shuffle
+                  ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
               }`}
               title={shuffle ? "Disable Shuffle" : "Enable Shuffle"}
@@ -86,7 +98,11 @@ export default function PlayerControls({
               className="p-3 sm:p-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
               title={isPlaying ? "Pause" : "Play"}
             >
-              {isPlaying ? <Pause className="w-5 h-5 sm:w-6 sm:h-6" /> : <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 sm:ml-1" />}
+              {isPlaying ? (
+                <Pause className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 sm:ml-1" />
+              )}
             </button>
             <button
               type="button"
@@ -100,8 +116,8 @@ export default function PlayerControls({
               type="button"
               onClick={() => setRepeat(!repeat)}
               className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
-                repeat 
-                  ? "text-purple-400 bg-purple-400/20" 
+                repeat
+                  ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
               }`}
               title={repeat ? "Disable Repeat" : "Enable Repeat"}
@@ -122,18 +138,24 @@ export default function PlayerControls({
                 className="w-16 sm:w-20 lg:w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer slider"
                 title="Volume"
               />
-              <span className="text-xs sm:text-sm text-gray-400 w-6 sm:w-8 text-right">{volume}</span>
+              <span className="text-xs sm:text-sm text-gray-400 w-6 sm:w-8 text-right">
+                {volume}
+              </span>
             </div>
           </div>
         </div>
         {/* Mobile Song Info */}
         <div className="sm:hidden pt-2 border-t border-white/10 mt-2">
           <div className="text-center">
-            <div className="font-medium text-white text-sm truncate">{currentSong.title}</div>
-            <div className="text-xs text-gray-400 truncate">{currentSong.artist}</div>
+            <div className="font-medium text-white text-sm truncate">
+              {currentSong.title}
+            </div>
+            <div className="text-xs text-gray-400 truncate">
+              {currentSong.artist}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

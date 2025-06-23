@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { usePlaylistState } from "@/app/playlist/usePlaylistState"
-import { useYouTubePlayer } from "@/app/playlist/useYouTubePlayer"
-import PlaylistSidebar from "@/app/playlist/PlaylistSidebar"
-import PlayerControls from "@/app/playlist/PlayerControls"
-import SongInfo from "@/app/playlist/SongInfo"
+import { usePlaylistState } from "@/app/playlist/usePlaylistState";
+import { useYouTubePlayer } from "@/app/playlist/useYouTubePlayer";
+import PlaylistSidebar from "@/app/playlist/PlaylistSidebar";
+import PlayerControls from "@/app/playlist/PlayerControls";
+import SongInfo from "@/app/playlist/SongInfo";
 
 export default function PlaylistPage() {
   const {
@@ -22,12 +22,9 @@ export default function PlaylistPage() {
     handleSelectSong,
     handleNext,
     handlePrevious,
-  } = usePlaylistState()
+  } = usePlaylistState();
 
-  const {
-    playerContainerRef,
-    handlePlayPause,
-  } = useYouTubePlayer({
+  const { playerContainerRef, handlePlayPause } = useYouTubePlayer({
     songs,
     currentSongIndex,
     setCurrentSongIndex,
@@ -38,9 +35,9 @@ export default function PlaylistPage() {
     volume,
     setShuffle,
     setRepeat,
-  })
+  });
 
-  const currentSong = songs[currentSongIndex]
+  const currentSong = songs[currentSongIndex];
 
   return (
     <div className="lg:max-h-screen min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
@@ -50,9 +47,17 @@ export default function PlaylistPage() {
           <div className="lg:col-span-4">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <div className="bg-black rounded-xl overflow-hidden mb-8 aspect-video">
-                <div ref={playerContainerRef} id="youtube-player" className="w-full h-full"></div>
+                <div
+                  ref={playerContainerRef}
+                  id="youtube-player"
+                  className="w-full h-full"
+                ></div>
               </div>
-              <SongInfo currentSong={currentSong} currentSongIndex={currentSongIndex} isPlaying={isPlaying} />
+              <SongInfo
+                currentSong={currentSong}
+                currentSongIndex={currentSongIndex}
+                isPlaying={isPlaying}
+              />
             </div>
           </div>
           {/* Playlist Sidebar */}
@@ -116,5 +121,5 @@ export default function PlaylistPage() {
         }
       `}</style>
     </div>
-  )
+  );
 }

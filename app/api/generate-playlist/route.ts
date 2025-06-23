@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
-import { OpenAI } from 'openai';
-import { searchYouTubePlaylist, getPlaylistItems } from '@/utils/youtube';
+import { NextResponse } from "next/server";
+import { OpenAI } from "openai";
+import { searchYouTubePlaylist, getPlaylistItems } from "@/utils/youtube";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -10,16 +10,19 @@ export async function POST(req: Request) {
   try {
     const { prompt } = await req.json();
 
-    if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
+    if (!prompt || typeof prompt !== "string") {
+      return NextResponse.json(
+        { error: "Prompt is required" },
+        { status: 400 }
+      );
     }
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       temperature: 0.7,
       messages: [
         {
-          role: 'system',
+          role: "system",
           content: `You are a helpful assistant that creates YouTube playlist search queries.
                 Based on the user's request, create a concise search query that would find a relevant playlist on YouTube.
                 
@@ -31,46 +34,51 @@ export async function POST(req: Request) {
                 
                 Return only the search query, nothing else.`,
         },
-        { role: 'user', content: prompt },
+        { role: "user", content: prompt },
       ],
     });
 
     const searchQuery = completion.choices[0].message.content?.trim();
     if (!searchQuery) {
-      return NextResponse.json({ error: 'No search query generated' }, { status: 500 });
+      return NextResponse.json(
+        { error: "No search query generated" },
+        { status: 500 }
+      );
     }
 
-    console.log('Generated search query:', searchQuery);
+    console.log("Generated search query:", searchQuery);
 
     const playlistInfo = await searchYouTubePlaylist(searchQuery);
     if (!playlistInfo) {
-      return NextResponse.json({ error: 'No playlist found' }, { status: 404 });
+      return NextResponse.json({ error: "No playlist found" }, { status: 404 });
     }
 
-    console.log('Found playlist:', playlistInfo.playlistTitle);
+    console.log("Found playlist:", playlistInfo.playlistTitle);
 
     const findsong = await getPlaylistItems(playlistInfo.playlistId, 15);
 
     const songs = findsong
       .slice()
       .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
-      
+
     if (songs.length === 0) {
-      return NextResponse.json({ error: 'No songs found in playlist' }, { status: 404 });
+      return NextResponse.json(
+        { error: "No songs found in playlist" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       songs,
       playlistInfo: {
         title: playlistInfo.playlistTitle,
-        thumbnail: playlistInfo.playlistThumbnail
-      }
+        thumbnail: playlistInfo.playlistThumbnail,
+      },
     });
-
   } catch (error) {
-    console.error('Playlist route error:', error);
+    console.error("Playlist route error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Unexpected error' },
+      { error: error instanceof Error ? error.message : "Unexpected error" },
       { status: 500 }
     );
   }
