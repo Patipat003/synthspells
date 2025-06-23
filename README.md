@@ -1,20 +1,19 @@
 # 🎶 SynthSpells
 
-**AI-powered playlist summoner** — ใช้คำอธิบายอารมณ์ของคุณ เพื่อค้นหาเพลย์ลิสต์จาก YouTube ผ่าน AI
+**AI-powered playlist summoner** — Prompt เพื่อค้นหาเพลย์ลิสต์จาก YouTube ผ่าน AI
 
 ## 🔗 Demo
 https://synthspells.vercel.app/
 
 ## What is SynthSpells?
 
-SynthSpells เป็นเว็บแอปที่ให้คุณ “เสกเพลย์ลิสต์” ได้จากอารมณ์หรือสถานการณ์ เช่น
+SynthSpells เป็นเว็บแอปที่ให้คุณ “สร้างเพลย์ลิสต์” ได้จากอารมณ์หรือสถานการณ์ เช่น
 
-> *"อยากได้เพลงชิลล์ๆ เหมือนนั่งอยู่ในร้านกาแฟ"*  
+> *"chill song for studying"*  
 
-ระบบจะ:
-1. ใช้ **ChatGPT** แปลงคำอธิบายนี้ให้กลายเป็น **ชื่อเพลย์ลิสต์** ที่น่าจะมีอยู่บน YouTube (เช่น `lofi chill cafe playlist`)
-2. ใช้ **YouTube API** ค้นหา playlist นั้นโดยตรง
-3. แสดงรายการวิดีโอในเพลย์ลิสต์นั้นให้คุณเล่นได้ทันที
+1. **ChatGPT** แปลงข้อความนี้ให้กลายเป็น **ชื่อเพลย์ลิสต์** ที่น่าจะมีอยู่บน YouTube (เช่น `lofi chill cafe playlist`)
+2. ใช้ **YouTube API** ค้นหา playlist นั้น
+3. list รายการเพลงจาก playlist พร้อมเล่นได้ทันที
 
 ## 🧱 Tech Stack
 
