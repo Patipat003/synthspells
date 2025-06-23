@@ -5,7 +5,7 @@
 ## 🔗 Demo
 https://synthspells.vercel.app/
 
-## 🪄 What is SynthSpells?
+## What is SynthSpells?
 
 SynthSpells เป็นเว็บแอปที่ให้คุณ “เสกเพลย์ลิสต์” ได้จากอารมณ์หรือสถานการณ์ เช่น
 
