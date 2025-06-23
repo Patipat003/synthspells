@@ -26,7 +26,7 @@ SynthSpells เป็นเว็บแอปที่ให้คุณ “เ�
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/yourusername/synthspells
+git clone https://github.com/Patipat003/synthspells
 cd synthspells
 npm install
 npm run dev
