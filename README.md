@@ -24,8 +24,16 @@ SynthSpells เป็นเว็บแอปที่ให้คุณ “ส�
 
 ## 🚀 Getting Started
 
+**Create `.env.local` file**
+
+```env
+OPENAI_API_KEY=your_openai_key
+YOUTUBE_API_KEY=your_youtube_key
+```
+
 ```bash
 git clone https://github.com/Patipat003/synthspells
 cd synthspells
 npm install
 npm run dev
+```
