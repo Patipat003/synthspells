@@ -111,10 +111,8 @@ export function useYouTubePlayer({
         } catch {}
       }
     };
-    // eslint-disable-next-line
   }, []);
 
-  // Initialize YouTube player
   const initializePlayer = () => {
     if (!window.YT || !window.YT.Player || !playerContainerRef.current) return;
     try {

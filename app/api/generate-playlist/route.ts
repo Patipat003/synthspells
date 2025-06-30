@@ -23,18 +23,27 @@ export async function POST(req: Request) {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant that creates YouTube playlist search queries.
-                Based on the user's request, create a concise search query that would find a relevant playlist on YouTube.
-                
-                Examples:
-                - "lofi hip hop chill music" → "lofi hip hop chill"
-                - "90s rock hits" → "90s rock hits"
-                - "workout motivation music" → "workout motivation"
-                - "jazz for studying" → "jazz study"
-                
-                Return only the search query, nothing else.`,
+          content: `You are a helpful assistant that creates YouTube search queries or extracts YouTube IDs.
+
+          Given the user's input, do the following:
+
+          - If the input is a YouTube playlist URL, extract and return only the playlist ID.
+          - If the input is a YouTube video URL, extract and return only the video ID.
+          - Otherwise, create a concise search query that would find a relevant playlist on YouTube by shortening or simplifying the user's input.
+
+          Examples:
+          - Input: "https://www.youtube.com/playlist?list=PL123ABC" → Output: "PL123ABC"
+          - Input: "lofi hip hop chill music" → Output: "lofi hip hop chill"
+          - Input: "90s rock hits" → Output: "90s rock hits"
+          - Input: "workout motivation music" → Output: "workout motivation"
+          - Input: "jazz for studying" → Output: "jazz study"
+
+          Return only the extracted ID or search query, nothing else.`,
         },
-        { role: "user", content: prompt },
+        {
+          role: "user",
+          content: prompt,
+        },
       ],
     });
 
@@ -55,7 +64,7 @@ export async function POST(req: Request) {
 
     console.log("Found playlist:", playlistInfo.playlistTitle);
 
-    const findsong = await getPlaylistItems(playlistInfo.playlistId, 15);
+    const findsong = await getPlaylistItems(playlistInfo.playlistId, 50);
 
     const songs = findsong
       .slice()

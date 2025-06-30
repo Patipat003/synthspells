@@ -93,7 +93,6 @@ const defaultSongs: Song[] = [
   },
 ];
 
-// ฟังก์ชันสำหรับสุ่มลำดับเพลง
 const shuffleArray = <T>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -104,7 +103,6 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 export function usePlaylistState() {
-  // เริ่มต้นด้วยเพลง default ก่อน (ไม่สุ่ม)
   const [songs, setSongs] = useState<Song[]>(defaultSongs);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -115,12 +113,10 @@ export function usePlaylistState() {
   const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
   const [isClient, setIsClient] = useState(false);
 
-  // ตรวจสอบว่าอยู่ใน client หรือไม่
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Load และ shuffle เฉพาะใน client
   useEffect(() => {
     if (isClient) {
       try {
@@ -132,22 +128,18 @@ export function usePlaylistState() {
             Array.isArray(data.songs) &&
             data.songs.length > 0
           ) {
-            // สุ่มเพลงที่โหลดจาก localStorage
             setSongs(shuffleArray(data.songs));
             setPrompt(data.prompt || "");
             setPlaylistInfo(data.playlistInfo || null);
             setCurrentSongIndex(0);
           } else {
-            // ถ้าไม่มีเพลงใน localStorage ให้สุ่มเพลง default
             setSongs(shuffleArray(defaultSongs));
           }
         } else {
-          // ถ้าไม่มี localStorage ให้สุ่มเพลง default
           setSongs(shuffleArray(defaultSongs));
         }
       } catch (error) {
         console.error("Failed to load playlist from localStorage:", error);
-        // ถ้าเกิดข้อผิดพลาด ให้สุ่มเพลง default
         setSongs(shuffleArray(defaultSongs));
       }
     }

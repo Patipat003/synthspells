@@ -35,7 +35,6 @@ export default function HomePage() {
         throw new Error("Invalid response format - no songs received");
       }
 
-      // ตรวจสอบว่าได้เพลงที่มี videoId มาจาก playlist
       const validSongs = data.songs.filter(
         (song: any) =>
           song &&
@@ -53,11 +52,10 @@ export default function HomePage() {
         );
       }
 
-      // Store in localStorage พร้อมข้อมูล playlist
       const playlistData = {
         songs: validSongs,
         prompt: prompt.trim(),
-        playlistInfo: data.playlistInfo || null, // ข้อมูล playlist ที่ได้จาก YouTube
+        playlistInfo: data.playlistInfo || null,
         createdAt: new Date().toISOString(),
       };
       localStorage.setItem("playlistData", JSON.stringify(playlistData));
@@ -93,14 +91,14 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-4xl mt-6">
         {/* Main Heading */}
-        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
+        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-6 text-white leading-tight">
           AI Playlist Songs
         </h1>
 
         {/* Subtitle Section */}
-        <div className="mb-6 sm:mb-8 space-y-2 sm:space-y-4">
+        <div className="mb-6 sm:mb-8 space-y-2 sm:space-y-4 hidden sm:block">
           <div className="text-purple-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
             Discover Curated Playlists With AI
           </div>
@@ -124,6 +122,9 @@ export default function HomePage() {
           />
           <div className="text-right text-xs sm:text-sm text-gray-400 mt-1">
             {prompt.length}/500
+          </div>
+          <div className="text-center text-xs text-gray-400 italic">
+            also you can paste playlist url from youtube
           </div>
         </div>
 

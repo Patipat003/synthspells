@@ -44,7 +44,7 @@ export default function PlaylistPage() {
       <div className="mx-auto max-w-6xl pt-6 px-4">
         <div className="grid lg:grid-cols-7 gap-6 w-full">
           {/* Video Player */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 ">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <div className="bg-black rounded-xl overflow-hidden mb-8 aspect-video">
                 <div
