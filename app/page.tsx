@@ -167,7 +167,7 @@ export default function HomePage() {
         </button>
 
         {/* Footer Info */}
-        <div className="mt-6 sm:mt-8 text-gray-400 text-xs sm:text-sm px-2">
+        <div className="mt-6 sm:mt-8 text-gray-400 text-xs sm:text-sm px-2 mb-4">
           <p>• Powered by OpenAI & YouTube •</p>
         </div>
       </div>
