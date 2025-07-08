@@ -2,6 +2,8 @@
 
 **AI-powered playlist summoner** — Prompt เพื่อค้นหาเพลย์ลิสต์จาก YouTube ผ่าน AI
 
+![App Preview](./public/cover.png)
+
 ## 🔗 Demo
 https://synthspells.vercel.app/
 
