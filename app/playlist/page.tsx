@@ -41,10 +41,10 @@ export default function PlaylistPage() {
 
   return (
     <div className="lg:max-h-screen min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
-      <div className="mx-auto max-w-6xl pt-6 px-4">
-        <div className="grid lg:grid-cols-7 gap-6 w-full">
+      <div className="mx-auto max-w-6xl pt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 w-full md:px-2 px-6">
           {/* Video Player */}
-          <div className="lg:col-span-4 ">
+          <div className="lg:col-span-4">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <div className="bg-black rounded-xl overflow-hidden mb-8 aspect-video">
                 <div
@@ -86,40 +86,6 @@ export default function PlaylistPage() {
         volume={volume}
         setVolume={setVolume}
       />
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(147, 51, 234, 0.5);
-          border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(147, 51, 234, 0.7);
-        }
-        .slider::-webkit-slider-thumb {
-          appearance: none;
-          height: 16px;
-          width: 16px;
-          border-radius: 50%;
-          background: #a855f7;
-          cursor: pointer;
-          box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
-        }
-        .slider::-moz-range-thumb {
-          height: 16px;
-          width: 16px;
-          border-radius: 50%;
-          background: #a855f7;
-          cursor: pointer;
-          border: none;
-          box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
-        }
-      `}</style>
     </div>
   );
 }

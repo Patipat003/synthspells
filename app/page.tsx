@@ -91,7 +91,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
-      <div className="w-full max-w-4xl mt-6">
+      <div className="w-full max-w-4xl">
         {/* Main Heading */}
         <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-6 text-white leading-tight">
           AI Playlist Songs
@@ -134,6 +134,7 @@ export default function HomePage() {
             <div className="flex justify-between items-start">
               <span className="flex-1 text-left">{error}</span>
               <button
+                type="button"
                 onClick={clearError}
                 className="ml-2 text-red-300 hover:text-red-100 flex-shrink-0 text-lg"
               >

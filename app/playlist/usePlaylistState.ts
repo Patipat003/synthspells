@@ -93,15 +93,6 @@ const defaultSongs: Song[] = [
   },
 ];
 
-const shuffleArray = <T>(array: T[]): T[] => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
 export function usePlaylistState() {
   const [songs, setSongs] = useState<Song[]>(defaultSongs);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -128,19 +119,19 @@ export function usePlaylistState() {
             Array.isArray(data.songs) &&
             data.songs.length > 0
           ) {
-            setSongs(shuffleArray(data.songs));
+            setSongs(data.songs);
             setPrompt(data.prompt || "");
             setPlaylistInfo(data.playlistInfo || null);
             setCurrentSongIndex(0);
           } else {
-            setSongs(shuffleArray(defaultSongs));
+            setSongs(defaultSongs);
           }
         } else {
-          setSongs(shuffleArray(defaultSongs));
+          setSongs(defaultSongs);
         }
       } catch (error) {
         console.error("Failed to load playlist from localStorage:", error);
-        setSongs(shuffleArray(defaultSongs));
+        setSongs(defaultSongs);
       }
     }
   }, [isClient]);
