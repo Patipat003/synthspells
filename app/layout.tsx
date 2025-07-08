@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-gradient-to-br from-violet-950 via-indigo-950 to-violet-950 bg-no-repeat min-h-screen">
         <ThemeProvider>
           <Toaster
-            position="bottom-right"
+            position="bottom-left"
             toastOptions={{
               style: {
                 background: "transparent",
