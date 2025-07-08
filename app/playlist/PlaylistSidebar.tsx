@@ -49,7 +49,7 @@ export default function PlaylistSidebar({
                 {songs.length} songs
               </span>
               <span
-                className="cursor-pointer text-sm text-purple-400 bg-white/10 px-3 py-1 rounded-full hover:scale-105 hover:bg-purple-500/20 transition-all duration-200"
+                className="cursor-pointer text-sm text-violet-400 bg-white/10 px-3 py-1 rounded-full hover:scale-105 hover:bg-violet-500/20 transition-all duration-200"
                 onClick={handleDeleteClick}
               >
                 Clear
@@ -62,7 +62,7 @@ export default function PlaylistSidebar({
                 key={`${song.videoId}-${index}`}
                 className={`group cursor-pointer p-4 rounded-xl transition-colors duration-200 ${
                   index === currentSongIndex
-                    ? "bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/50"
+                    ? "bg-gradient-to-r from-violet-600/30 to-pink-600/30 border border-violet-500/50"
                     : "hover:bg-white/10"
                 }`}
                 onClick={() => handleSelectSong(index)}
@@ -79,7 +79,7 @@ export default function PlaylistSidebar({
                       <div
                         className={`w-full h-full flex items-center justify-center text-sm font-medium ${
                           index === currentSongIndex
-                            ? "bg-gradient-to-br from-purple-500 to-pink-500 text-white"
+                            ? "bg-gradient-to-br from-violet-500 to-red-500 text-white"
                             : "bg-white/10 text-gray-300"
                         }`}
                       >
@@ -110,7 +110,7 @@ export default function PlaylistSidebar({
                     </div>
                   </div>
                   {index === currentSongIndex && (
-                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></div>
                   )}
                 </div>
               </div>
@@ -129,9 +129,9 @@ export default function PlaylistSidebar({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center border border-purple-500/30">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-violet-500/20 to-pink-500/20 flex items-center justify-center border border-violet-500/30">
                 <svg
-                  className="w-10 h-10 text-purple-400 animate-in fade-in-0 duration-300 delay-300"
+                  className="w-10 h-10 text-violet-400 animate-in fade-in-0 duration-300 delay-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -150,7 +150,7 @@ export default function PlaylistSidebar({
               <p className="text-gray-300 mb-2 leading-relaxed">
                 This will remove your current playlist and cannot be undone.
               </p>
-              <p className="text-sm text-purple-300 mb-8 bg-purple-500/10 rounded-xl p-3 border border-purple-500/20">
+              <p className="text-sm text-violet-300 mb-8 bg-violet-500/10 rounded-xl p-3 border border-violet-500/20">
                 <span className="font-medium">Don't worry!</span> We'll
                 automatically load the default playlist so you can keep enjoying
                 music.
@@ -159,7 +159,7 @@ export default function PlaylistSidebar({
                 <button
                   type="button"
                   onClick={handleConfirmDelete}
-                  className="cursor-pointer px-8 py-3 bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white rounded-2xl transition-all duration-200 font-medium shadow-lg hover:shadow-purple-500/25 hover:scale-105 active:scale-95"
+                  className="cursor-pointer px-8 py-3 bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white rounded-2xl transition-all duration-200 font-medium shadow-lg hover:shadow-violet-500/25 hover:scale-105 active:scale-95"
                 >
                   Clear
                 </button>

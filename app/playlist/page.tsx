@@ -40,13 +40,13 @@ export default function PlaylistPage() {
   const currentSong = songs[currentSongIndex];
 
   return (
-    <div className="lg:max-h-screen min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    <div className="lg:max-h-screen min-h-screen text-white">
       <div className="mx-auto max-w-6xl pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 w-full md:px-2 px-6">
           {/* Video Player */}
           <div className="lg:col-span-4">
-            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="bg-black rounded-xl overflow-hidden mb-8 aspect-video">
+            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10 h-full">
+              <div className="bg-black rounded-xl overflow-hidden mb-4 aspect-video">
                 <div
                   ref={playerContainerRef}
                   id="youtube-player"

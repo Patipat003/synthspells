@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import PetWidget from "@/components/PetWidget";
 import { Metadata } from "next";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "SynthSpells - AI Generated YouTube Playlists",
@@ -52,13 +53,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body className="bg-gradient-to-br from-violet-950 via-indigo-950 to-violet-950 bg-no-repeat min-h-screen">
+        <ThemeProvider>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "transparent",
+                color: "red",
+                border: "1px solid red",
+              },
+            }}
+          />
           <Navbar />
           {children}
           <PetWidget />

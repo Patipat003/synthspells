@@ -37,11 +37,11 @@ export default function SongInfo({
         </h3>
         <p className="text-gray-400 truncate">{currentSong.artist}</p>
         <div className="flex items-center space-x-2 mt-1">
-          <span className="text-sm text-purple-400">Now Playing</span>
+          <span className="text-sm text-violet-400">Now Playing</span>
           <div className="flex space-x-1 mt-1">
-            <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-            <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse delay-75"></div>
-            <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse delay-150"></div>
+            <div className="w-1 h-3 bg-violet-400 rounded-full animate-pulse"></div>
+            <div className="w-1 h-3 bg-violet-400 rounded-full animate-pulse delay-75"></div>
+            <div className="w-1 h-3 bg-violet-400 rounded-full animate-pulse delay-150"></div>
           </div>
         </div>
       </div>

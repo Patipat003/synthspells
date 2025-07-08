@@ -3,6 +3,8 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function HomePage() {
   const [prompt, setPrompt] = useState("");
@@ -87,31 +89,40 @@ export default function HomePage() {
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      clearError();
+    }
+  }, [error]);
+
   const clearError = () => setError("");
 
   return (
-    <div className="flex flex-col items-center justify-center text-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
-      <div className="w-full max-w-4xl">
+    <div className="flex flex-col items-center text-center max-h-screen w-screen px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-4xl h-full mt-16">
         {/* Main Heading */}
-        <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-6 text-white leading-tight">
-          AI Playlist Songs
-        </h1>
+        <div className="mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            AI Playlist Songs
+          </h1>
+        </div>
 
         {/* Subtitle Section */}
-        <div className="mb-6 sm:mb-8 space-y-2 sm:space-y-4 hidden sm:block">
-          <div className="text-purple-300 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+        <div className="mb-12 space-y-1 sm:space-y-2 hidden sm:block">
+          <div className="text-purple-300 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
             Discover Curated Playlists With AI
           </div>
-          <div className="text-gray-300 font-semibold text-base sm:text-lg md:text-xl px-2">
+          <div className="text-gray-300 font-semibold text-sm sm:text-base md:text-lg px-2">
             SynthSpells – AI finds the perfect playlist for your vibe ✨
           </div>
         </div>
 
         {/* Input Section */}
-        <div className="w-full max-w-2xl mx-auto mb-4 sm:mb-6">
+        <div className="w-full max-w-2xl mx-auto mb-3 sm:mb-4">
           <Textarea
-            className="h-32 sm:h-40 w-full resize-none bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500 text-sm sm:text-base"
-            placeholder="Describe your vibe…  (e.g. lofi hip hop for studying, 90s rock hits, jazz for relaxing)"
+            className="h-64 sm:h-42 w-full bg-gray-800/20 border-violet-600 text-white placeholder-violet-400 text-sm sm:text-base resize-none focus:ring-1 focus:ring-violet-500"
+            placeholder="Describe your vibe…  (e.g. lofi hip hop for studying)"
             value={prompt}
             onChange={(e) => {
               setPrompt(e.target.value);
@@ -128,47 +139,33 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Error Display */}
-        {error && (
-          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500 rounded-lg text-red-200 max-w-2xl mx-auto text-sm sm:text-base">
-            <div className="flex justify-between items-start">
-              <span className="flex-1 text-left">{error}</span>
-              <button
-                type="button"
-                onClick={clearError}
-                className="ml-2 text-red-300 hover:text-red-100 flex-shrink-0 text-lg"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Generate Button */}
-        <button
-          type="button"
-          onClick={handleGenerate}
-          disabled={loading || !prompt.trim()}
-          className={`w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-white font-semibold text-base sm:text-lg transition-all duration-200 ${
-            loading || !prompt.trim()
-              ? "bg-gray-600 cursor-not-allowed opacity-50"
-              : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105 shadow-lg hover:shadow-purple-500/25"
-          }`}
-        >
-          {loading ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-sm sm:text-base">
-                Finding Perfect Playlist...
-              </span>
-            </div>
-          ) : (
-            <span className="text-sm sm:text-base">🎵 Find Playlist</span>
-          )}
-        </button>
+        <div className="mb-4">
+          <button
+            type="button"
+            onClick={handleGenerate}
+            disabled={loading || !prompt.trim()}
+            className={`w-full sm:w-1/3 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base transition-all duration-200 ${
+              loading || !prompt.trim()
+                ? "bg-gray-600 cursor-not-allowed opacity-50"
+                : "bg-black/10 border-1 border-violet-500 hover:scale-105 shadow-lg hover:shadow-purple-500/25 cursor-pointer"
+            }`}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-xs sm:text-sm">
+                  Finding Perfect Playlist...
+                </span>
+              </div>
+            ) : (
+              <span className="text-xs sm:text-sm">Find Playlist</span>
+            )}
+          </button>
+        </div>
 
         {/* Footer Info */}
-        <div className="mt-6 sm:mt-8 text-gray-400 text-xs sm:text-sm px-2 mb-4">
+        <div className="text-gray-400 text-xs px-2">
           <p>• Powered by OpenAI & YouTube •</p>
         </div>
       </div>

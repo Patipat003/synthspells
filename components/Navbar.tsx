@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-800 text-white px-4 sm:px-6 py-4 sticky top-0 z-50 shadow-2xl backdrop-blur-sm border-b border-purple-700/50">
+    <nav className="bg-black/10 text-white px-4 sm:px-6 py-4 sticky top-0 z-50 border-b border-white/10 shadow-2xl backdrop-blur-sm">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo Section */}
         <Link
@@ -37,7 +37,7 @@ const Navbar = () => {
 
           <Link
             href="/"
-            className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group"
+            className="flex items-center gap-2 border-1 border-violet-800 bg-black/10 px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group"
           >
             <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
             <span>New</span>
@@ -61,7 +61,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-purple-700/50">
+        <div className="md:hidden mt-4 pb-4 border-purple-700/50">
           <div className="flex flex-col gap-4 pt-4">
             <Link
               href="/playlist"

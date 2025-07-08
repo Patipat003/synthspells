@@ -43,7 +43,7 @@ export default function PlayerControls({
   setVolume: (v: number) => void;
 }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-xl border-t border-white/10">
+    <div className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-xl border-t border-white/10">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Current Song Mini Info */}
@@ -75,7 +75,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={() => setShuffle(!shuffle)}
-              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
                 shuffle
                   ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
@@ -87,7 +87,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={handlePrevious}
-              className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+              className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110 cursor-pointer"
               title="Previous Song"
             >
               <SkipBack className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -95,7 +95,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={handlePlayPause}
-              className="p-3 sm:p-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+              className="p-3 sm:p-4 border-1 border-violet-800 bg-black/10 rounded-full transition-all duration-200 hover:scale-110 shadow-lg cursor-pointer"
               title={isPlaying ? "Pause" : "Play"}
             >
               {isPlaying ? (
@@ -107,7 +107,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={handleNext}
-              className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110"
+              className="p-1.5 sm:p-2 text-gray-400 hover:text-white transition-colors hover:scale-110 cursor-pointer"
               title="Next Song"
             >
               <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -115,7 +115,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={() => setRepeat(!repeat)}
-              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
                 repeat
                   ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
