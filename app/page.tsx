@@ -6,11 +6,21 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export default function HomePage() {
+type HomePageProps = {
+  defaultPrompt?: string;
+};
+
+export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (defaultPrompt) {
+      setPrompt(defaultPrompt);
+    }
+  }, [defaultPrompt]);
 
   const handleGenerate = async () => {
     if (!prompt.trim() || loading) return;
