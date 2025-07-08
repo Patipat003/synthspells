@@ -75,7 +75,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={() => setShuffle(!shuffle)}
-              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
+              className={`sm:block sm:p-2 p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
                 shuffle
                   ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
@@ -101,7 +101,7 @@ export default function PlayerControls({
               {isPlaying ? (
                 <Pause className="w-5 h-5 sm:w-6 sm:h-6" />
               ) : (
-                <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 sm:ml-1" />
+                <Play className="w-5 h-5 sm:w-6 sm:h-6" />
               )}
             </button>
             <button
@@ -115,7 +115,7 @@ export default function PlayerControls({
             <button
               type="button"
               onClick={() => setRepeat(!repeat)}
-              className={`hidden sm:block p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
+              className={`sm:block p-2 sm:p-2 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer ${
                 repeat
                   ? "text-purple-400 bg-purple-400/20"
                   : "text-gray-400 hover:text-white"
@@ -127,20 +127,24 @@ export default function PlayerControls({
           </div>
           {/* Volume Control */}
           <div className="flex items-center space-x-2 sm:space-x-3 flex-1 justify-end sm:max-w-sm">
-            <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
-            <div className="flex items-center space-x-1 sm:space-x-2">
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={volume}
-                onChange={(e) => setVolume(Number(e.target.value))}
-                className="w-16 sm:w-20 lg:w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer slider"
-                title="Volume"
-              />
-              <span className="text-xs sm:text-sm text-gray-400 w-6 sm:w-8 text-right">
-                {volume}
-              </span>
+            <div className="hidden lg:block">
+              <div className="flex items-center space-x-2 sm:space-x-3 flex-1 justify-end sm:max-w-sm">
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={volume}
+                    onChange={(e) => setVolume(Number(e.target.value))}
+                    className="w-16 sm:w-20 lg:w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer slider"
+                    title="Volume"
+                  />
+                  <span className="text-xs sm:text-sm text-gray-400 w-6 sm:w-8 text-right">
+                    {volume}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

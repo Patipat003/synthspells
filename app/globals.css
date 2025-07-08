@@ -12,7 +12,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #8a5cf6ad;
-  background: color-mix(in oklch, currentColor 10%, #8a5cf6ad);
+  background: color-mix(in oklch, currentColor 10%, rgba(68, 43, 126, 0.678));
   border-radius: 12px;
 }
 

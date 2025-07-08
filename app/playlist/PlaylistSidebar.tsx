@@ -121,7 +121,7 @@ export default function PlaylistSidebar({
 
       {showDeleteConfirm && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 animate-in fade-in-0 duration-300"
+          className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-in fade-in-0 duration-300"
           onClick={handleCancelDelete}
         >
           <div

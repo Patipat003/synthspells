@@ -72,20 +72,22 @@ export default function PlaylistPage() {
         </div>
       </div>
       {/* Bottom Player Controls */}
-      <PlayerControls
-        currentSong={currentSong}
-        currentSongIndex={currentSongIndex}
-        isPlaying={isPlaying}
-        handlePlayPause={handlePlayPause}
-        handleNext={handleNext}
-        handlePrevious={handlePrevious}
-        shuffle={shuffle}
-        setShuffle={setShuffle}
-        repeat={repeat}
-        setRepeat={setRepeat}
-        volume={volume}
-        setVolume={setVolume}
-      />
+      <div className="fixed bottom-0 w-full z-50 p-4">
+        <PlayerControls
+          currentSong={currentSong}
+          currentSongIndex={currentSongIndex}
+          isPlaying={isPlaying}
+          handlePlayPause={handlePlayPause}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          shuffle={shuffle}
+          setShuffle={setShuffle}
+          repeat={repeat}
+          setRepeat={setRepeat}
+          volume={volume}
+          setVolume={setVolume}
+        />
+      </div>
     </div>
   );
 }
