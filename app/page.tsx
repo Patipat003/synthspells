@@ -1,9 +1,8 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { toast } from "sonner";
 
 type HomePageProps = {
@@ -16,14 +15,22 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
   const [error, setError] = useState("");
   const router = useRouter();
 
+  const hasAutoSearched = useRef(false);
+
   useEffect(() => {
     if (defaultPrompt) {
       setPrompt(defaultPrompt);
+
+      if (!hasAutoSearched.current) {
+        hasAutoSearched.current = true;
+        handleGenerate(defaultPrompt);
+      }
     }
   }, [defaultPrompt]);
 
-  const handleGenerate = async () => {
-    if (!prompt.trim() || loading) return;
+  const handleGenerate = async (customPrompt?: string) => {
+    const usedPrompt = (customPrompt ?? prompt).trim();
+    if (!usedPrompt || loading) return;
 
     setLoading(true);
     setError("");
@@ -34,7 +41,7 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: prompt.trim() }),
+        body: JSON.stringify({ prompt: usedPrompt }),
       });
 
       const data = await res.json();
@@ -66,7 +73,7 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
 
       const playlistData = {
         songs: validSongs,
-        prompt: prompt.trim(),
+        prompt: usedPrompt,
         playlistInfo: data.playlistInfo || null,
         createdAt: new Date().toISOString(),
       };
@@ -153,7 +160,7 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
         <div className="mb-4">
           <button
             type="button"
-            onClick={handleGenerate}
+            onClick={() => handleGenerate()}
             disabled={loading || !prompt.trim()}
             className={`w-full sm:w-1/3 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base transition-all duration-200 ${
               loading || !prompt.trim()
