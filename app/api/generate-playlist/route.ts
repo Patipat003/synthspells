@@ -66,9 +66,7 @@ export async function POST(req: Request) {
 
     const findsong = await getPlaylistItems(playlistInfo.playlistId, 50);
 
-    const songs = findsong
-      .slice()
-      .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0));
+    const songs = findsong.slice();
 
     if (songs.length === 0) {
       return NextResponse.json(
