@@ -37,14 +37,13 @@ export async function searchYouTubePlaylist(query: string): Promise<{
 
 export async function getPlaylistItems(
   playlistId: string,
-  maxResults: number = 15
+  maxResults: number
 ): Promise<
   {
     title: string;
     artist: string;
     videoId: string;
     thumbnail: string;
-    viewCount: number;
   }[]
 > {
   const apiKey = process.env.YOUTUBE_API_KEY;
@@ -84,7 +83,6 @@ export async function getPlaylistItems(
             snippet.thumbnails?.high?.url ||
             snippet.thumbnails?.default?.url ||
             "",
-          viewCount: 0,
         };
       })
       .filter((song: { videoId: string }) => song.videoId);
@@ -94,7 +92,6 @@ export async function getPlaylistItems(
       artist: string;
       videoId: string;
       thumbnail: string;
-      viewCount: number;
     }
 
     const videoIds: string[] = songs
@@ -102,29 +99,8 @@ export async function getPlaylistItems(
       .filter(Boolean);
     if (videoIds.length === 0) return songs;
 
-    // YouTube API จำกัด 50 ids ต่อ 1 request
-    const chunkSize = 50;
-    let viewCountMap: Record<string, number> = {};
-    for (let i = 0; i < videoIds.length; i += chunkSize) {
-      const chunk = videoIds.slice(i, i + chunkSize);
-      const statsUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${chunk.join(
-        ","
-      )}&key=${apiKey}`;
-      try {
-        const statsRes = await fetch(statsUrl);
-        if (!statsRes.ok) continue;
-        const statsData = await statsRes.json();
-        (statsData.items || []).forEach((video: any) => {
-          viewCountMap[video.id] = Number(video.statistics?.viewCount || 0);
-        });
-      } catch (err) {
-        console.error("YouTube video statistics error:", err);
-      }
-    }
-
     return songs.map((song: Song) => ({
       ...song,
-      viewCount: viewCountMap[song.videoId] ?? 0,
     }));
   } catch (error) {
     console.error("YouTube playlist items error:", error);
