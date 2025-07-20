@@ -19,7 +19,7 @@ SynthSpells เป็นเว็บแอปที่ให้คุณ “ส�
 
 ## 🧱 Tech Stack
 
-- **Framework**: Next.js + TypeScript  
+- **Tools**: Next.js + TypeScript + Tailwind CSS
 - **AI**: OpenAI ChatGPT  
 - **Music API**: YouTube Data API
 - **Hosting**: Vercel
