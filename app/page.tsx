@@ -117,16 +117,16 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
 
   return (
     <div className="flex flex-col items-center text-center max-h-screen w-screen px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-4xl h-full mt-16">
+      <div className="w-full max-w-4xl h-full mt-6 sm:mt-16">
         {/* Main Heading */}
         <div className="mb-4">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             AI Playlist Songs
           </h1>
         </div>
 
         {/* Subtitle Section */}
-        <div className="mb-12 space-y-1 sm:space-y-2 hidden sm:block">
+        <div className="mb-12 space-y-1 sm:space-y-2 sm:text-sm">
           <div className="text-purple-300 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
             Discover Curated Playlists With AI
           </div>
@@ -138,7 +138,7 @@ export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
         {/* Input Section */}
         <div className="w-full max-w-2xl mx-auto mb-3 sm:mb-4">
           <Textarea
-            className="h-64 sm:h-42 w-full bg-gray-800/20 border-violet-600 text-white placeholder-violet-400 text-sm sm:text-base resize-none focus:ring-1 focus:ring-violet-500"
+            className="h-56 sm:h-42 w-full bg-gray-800/20 border-violet-600 text-white placeholder-violet-400 text-sm sm:text-base resize-none focus:ring-1 focus:ring-violet-500"
             placeholder="Describe your vibe…  (e.g. lofi hip hop for studying)"
             value={prompt}
             onChange={(e) => {

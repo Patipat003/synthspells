@@ -72,7 +72,7 @@ export default function PlaylistPage() {
         </div>
       </div>
       {/* Bottom Player Controls */}
-      <div className="fixed bottom-0 w-full z-50 p-4">
+      <div className="fixed bottom-0 w-full z-40 p-4">
         <PlayerControls
           currentSong={currentSong}
           currentSongIndex={currentSongIndex}
