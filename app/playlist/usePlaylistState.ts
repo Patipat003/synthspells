@@ -28,8 +28,8 @@ const defaultSongs: Song[] = [
   {
     title: "Memory Reboot",
     artist: "Narvent",
-    videoId: "mHSnuL-LGNU",
-    thumbnail: "https://i.ytimg.com/vi/mHSnuL-LGNU/hqdefault.jpg",
+    videoId: "wL8DVHuWI7Y",
+    thumbnail: "https://i.ytimg.com/vi/wL8DVHuWI7Y/hqdefault.jpg",
   },
   {
     title: "Dream Space",
