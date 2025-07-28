@@ -32,6 +32,12 @@ const defaultSongs: Song[] = [
     thumbnail: "https://i.ytimg.com/vi/wL8DVHuWI7Y/hqdefault.jpg",
   },
   {
+    title: "Her Eyes",
+    artist: "Narvent",
+    videoId: "cIhNXNR27Sc",
+    thumbnail: "https://i.ytimg.com/vi/cIhNXNR27Sc/hqdefault.jpg",
+  },
+  {
     title: "Dream Space",
     artist: "DVRST",
     videoId: "dSPiDFZmAnQ",
