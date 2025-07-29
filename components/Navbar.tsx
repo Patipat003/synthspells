@@ -12,6 +12,7 @@ const Navbar = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleGenerate = async (customPrompt?: string) => {
     const usedPrompt = (customPrompt ?? prompt).trim();
