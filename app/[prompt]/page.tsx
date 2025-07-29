@@ -1,16 +1,10 @@
-import HomePage from "@/app/page";
+import HomePage from "@/app/HomePage";
 
 type Props = {
-  params: Promise<{ prompt: string }>;
+  params: { prompt: string };
 };
 
-export default async function PromptPage({ params }: Props) {
-  const unwrappedParams = await params;
-
-  const promptFromPath = decodeURIComponent(unwrappedParams.prompt).replace(
-    /-/g,
-    " "
-  );
-
+export default function PromptPage({ params }: Props) {
+  const promptFromPath = decodeURIComponent(params.prompt).replace(/-/g, " ");
   return <HomePage defaultPrompt={promptFromPath} />;
 }
