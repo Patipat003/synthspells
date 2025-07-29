@@ -21,7 +21,7 @@ const Navbar = () => {
     setError("");
 
     try {
-      const res = await fetch("/api/generate-playlist2", {
+      const res = await fetch("/api/generate-playlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
