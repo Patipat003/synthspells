@@ -41,12 +41,12 @@ export default function PlaylistPage() {
 
   return (
     <div className="lg:max-h-screen min-h-screen text-white">
-      <div className="mx-auto max-w-6xl pt-6">
-        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 w-full md:px-2 px-6">
+      <div className="flex flex-col max-w-6xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
           {/* Video Player */}
           <div className="lg:col-span-4">
             <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10 h-full">
-              <div className="bg-black rounded-xl overflow-hidden mb-4 aspect-video">
+              <div className="bg-black rounded-xl overflow-hidden mb-6 aspect-video">
                 <div
                   ref={playerContainerRef}
                   id="youtube-player"
@@ -72,7 +72,7 @@ export default function PlaylistPage() {
         </div>
       </div>
       {/* Bottom Player Controls */}
-      <div className="fixed bottom-0 w-full z-40 p-4">
+      <div className="sticky lg:fixed w-full bottom-0 bg-black/20 backdrop-blur-xl border-t border-white/10 z-50">
         <PlayerControls
           currentSong={currentSong}
           currentSongIndex={currentSongIndex}

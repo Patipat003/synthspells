@@ -43,7 +43,7 @@ export default function PlayerControls({
   setVolume: (v: number) => void;
 }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-xl border-t border-white/10">
+    <div>
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Current Song Mini Info */}

@@ -42,7 +42,7 @@ export default function PlaylistSidebar({
     <>
       <div className="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 h-full">
         <div className="p-6">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold text-white">Queue</h3>
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-400 bg-white/10 px-3 py-1 rounded-full">
