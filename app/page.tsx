@@ -5,11 +5,10 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-type HomePageProps = {
-  defaultPrompt?: string;
+type Props = {
+  defaultPrompt: string;
 };
-
-export default function HomePage({ defaultPrompt = "" }: HomePageProps) {
+export default function HomePage({ defaultPrompt = "" }: Props) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
