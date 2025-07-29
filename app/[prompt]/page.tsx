@@ -1,10 +1,16 @@
+import { use } from "react";
 import HomePage from "@/app/HomePage";
 
-type Props = {
-  params: { prompt: string };
-};
+interface Props {
+  params: Promise<{ prompt: string }>;
+}
 
 export default function PromptPage({ params }: Props) {
-  const promptFromPath = decodeURIComponent(params.prompt).replace(/-/g, " ");
+  const resolvedParams = use(params);
+  const promptFromPath = decodeURIComponent(resolvedParams.prompt).replace(
+    /-/g,
+    " "
+  );
+
   return <HomePage defaultPrompt={promptFromPath} />;
 }
