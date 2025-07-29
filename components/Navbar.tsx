@@ -65,6 +65,7 @@ const Navbar = () => {
       };
       localStorage.setItem("playlistData", JSON.stringify(playlistData));
 
+      router.push("/playlist");
       window.location.href = "/playlist";
     } catch (err: any) {
       console.error("Error generating playlist:", err);
