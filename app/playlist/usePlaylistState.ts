@@ -14,17 +14,17 @@ type PlaylistInfo = {
 
 const defaultSongs: Song[] = [
   {
-    title: "I watch the moon",
-    artist: "Khaos Lan",
-    videoId: "WBgpL0c9dCQ",
-    thumbnail: "https://i.ytimg.com/vi/WBgpL0c9dCQ/hqdefault.jpg",
-  },
-  {
     title:
       "Glamorous x 9 Am In Calabasas (Xxtristanxo Full TikTok Remix) [made by purple drip boy]",
     artist: "purple drip boy",
     videoId: "Wd-pEeff9Rs",
     thumbnail: "https://i.ytimg.com/vi/Wd-pEeff9Rs/hqdefault.jpg",
+  },
+  {
+    title: "I watch the moon",
+    artist: "Khaos Lan",
+    videoId: "WBgpL0c9dCQ",
+    thumbnail: "https://i.ytimg.com/vi/WBgpL0c9dCQ/hqdefault.jpg",
   },
   {
     title: "Fainted",

@@ -159,14 +159,14 @@ export default function PlaylistSidebar({
                 <button
                   type="button"
                   onClick={handleConfirmDelete}
-                  className="cursor-pointer px-8 py-3 bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white rounded-2xl transition-all duration-200 font-medium shadow-lg hover:shadow-violet-500/25 hover:scale-105 active:scale-95"
+                  className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-red-500 font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border-1 border-red-500 hover:scale-105 shadow-lg hover:shadow-red-500/25 cursor-pointer"
                 >
                   Clear
                 </button>
                 <button
                   type="button"
                   onClick={handleCancelDelete}
-                  className="cursor-pointer px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-all duration-200 font-medium border border-white/20 hover:border-white/30 hover:scale-105 active:scale-95"
+                  className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border-1 border-gray-500 hover:scale-105 shadow-lg hover:shadow-gray-500/25 cursor-pointer"
                 >
                   Keep
                 </button>
