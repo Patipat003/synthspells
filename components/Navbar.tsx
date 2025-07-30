@@ -106,7 +106,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-black/10 text-white px-4 sm:px-6 py-4 sticky top-0 z-50 border-b border-white/10 shadow-2xl backdrop-blur-sm">
+      <nav className="w-full bg-black/10 text-white px-4 sm:px-6 py-4 sticky top-0 z-50 border-b border-white/10 shadow-2xl backdrop-blur-sm">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Link
             href="/"

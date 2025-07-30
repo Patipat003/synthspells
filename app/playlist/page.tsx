@@ -40,7 +40,7 @@ export default function PlaylistPage() {
   const currentSong = songs[currentSongIndex];
 
   return (
-    <div className="lg:max-h-screen min-h-screen text-white">
+    <>
       <div className="flex flex-col max-w-6xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
           {/* Video Player */}
@@ -72,7 +72,7 @@ export default function PlaylistPage() {
         </div>
       </div>
       {/* Bottom Player Controls */}
-      <div className="sticky lg:fixed w-full bottom-0 bg-black/20 backdrop-blur-xl border-t border-white/10 z-50">
+      <div className="sticky lg:fixed w-full bottom-0 bg-black/20 backdrop-blur-xl border-t border-white/10 z-40">
         <PlayerControls
           currentSong={currentSong}
           currentSongIndex={currentSongIndex}
@@ -88,6 +88,6 @@ export default function PlaylistPage() {
           setVolume={setVolume}
         />
       </div>
-    </div>
+    </>
   );
 }
