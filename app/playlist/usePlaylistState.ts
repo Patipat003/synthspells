@@ -18,7 +18,7 @@ const defaultSongs: Song[] = [
       "Glamorous x 9 Am In Calabasas (Xxtristanxo Full TikTok Remix) [made by purple drip boy]",
     artist: "purple drip boy",
     videoId: "Wd-pEeff9Rs",
-    thumbnail: "https://i.ytimg.com/vi/Wd-pEeff9Rs/hqdefault.jpg",
+    thumbnail: "https://i.ytimg.com/vi/Wd-pEeff9Rs/maxresdefault.jpg",
   },
   {
     title: "I watch the moon",
