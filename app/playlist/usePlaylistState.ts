@@ -81,6 +81,36 @@ const defaultSongs: Song[] = [
     thumbnail: "https://i.ytimg.com/vi/6RC5wI5MQfE/hqdefault.jpg",
   },
   {
+    title: "supїdo",
+    artist: "фрози",
+    videoId: "TryBShCWfKc",
+    thumbnail: "https://i.ytimg.com/vi/TryBShCWfKc/hqdefault.jpg",
+  },
+  {
+    title: "bounce (i just wanna dance)",
+    artist: "фрози",
+    videoId: "S2DLrhb-078",
+    thumbnail: "https://i.ytimg.com/vi/S2DLrhb-078/hqdefault.jpg",
+  },
+  {
+    title: "Japan",
+    artist: "prod.jk8",
+    videoId: "GW7AYygYrio",
+    thumbnail: "https://i.ytimg.com/vi/GW7AYygYrio/hqdefault.jpg",
+  },
+  {
+    title: "doodle",
+    artist: "Zachz Winner",
+    videoId: "AtXtXhZqc4s",
+    thumbnail: "https://i.ytimg.com/vi/AtXtXhZqc4s/hqdefault.jpg",
+  },
+  {
+    title: "linga guli guli",
+    artist: "Zachz Winner",
+    videoId: "8lifVcl1jgg",
+    thumbnail: "https://i.ytimg.com/vi/8lifVcl1jgg/hqdefault.jpg",
+  },
+  {
     title: "SEA OF PROBLEMS",
     artist: "GLICHERY",
     videoId: "gtpCl_QWaLg",
