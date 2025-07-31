@@ -99,6 +99,12 @@ const defaultSongs: Song[] = [
     thumbnail: "https://i.ytimg.com/vi/317RHaFF7Xk/hqdefault.jpg",
   },
   {
+    title: "Grimes - 4AM (skeler. Remix)",
+    artist: "ROYAL PHONK",
+    videoId: "5C2fAfuharU",
+    thumbnail: "https://i.ytimg.com/vi/5C2fAfuharU/hqdefault.jpg",
+  },
+  {
     title: "SO TIRED",
     artist: "NUEKI",
     videoId: "turCAoWsH-U",
