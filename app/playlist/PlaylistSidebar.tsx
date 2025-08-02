@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type Song = {
   title: string;
@@ -119,62 +120,71 @@ export default function PlaylistSidebar({
         </div>
       </div>
 
-      {showDeleteConfirm && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-in fade-in-0 duration-300"
-          onClick={handleCancelDelete}
-        >
-          <div
-            className="bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 p-8 max-w-lg w-full mx-4 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 ease-out"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {showDeleteConfirm && (
+          <motion.div
+            className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleCancelDelete}
           >
-            <div className="text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-violet-500/20 to-pink-500/20 flex items-center justify-center border border-violet-500/30">
-                <svg
-                  className="w-10 h-10 text-violet-400 animate-in fade-in-0 duration-300 delay-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  ></path>
-                </svg>
+            <motion.div
+              className="bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 p-8 max-w-lg w-full mx-4 shadow-2xl"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-violet-500/20 to-pink-500/20 flex items-center justify-center border border-violet-500/30">
+                  <svg
+                    className="w-10 h-10 text-violet-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    ></path>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Clear Current Playlist?
+                </h3>
+                <p className="text-gray-300 mb-2 leading-relaxed">
+                  This will remove your current playlist and cannot be undone.
+                </p>
+                <p className="text-sm text-violet-300 mb-8 bg-violet-500/10 rounded-xl p-3 border border-violet-500/20">
+                  <span className="font-medium">Don't worry!</span> We'll
+                  automatically load the default playlist so you can keep
+                  enjoying music.
+                </p>
+                <div className="flex space-x-4 justify-center">
+                  <button
+                    type="button"
+                    onClick={handleConfirmDelete}
+                    className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-red-500 font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border border-red-500 hover:scale-105 shadow-lg hover:shadow-red-500/25 cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelDelete}
+                    className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border border-gray-500 hover:scale-105 shadow-lg hover:shadow-gray-500/25 cursor-pointer"
+                  >
+                    Keep
+                  </button>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                Clear Current Playlist?
-              </h3>
-              <p className="text-gray-300 mb-2 leading-relaxed">
-                This will remove your current playlist and cannot be undone.
-              </p>
-              <p className="text-sm text-violet-300 mb-8 bg-violet-500/10 rounded-xl p-3 border border-violet-500/20">
-                <span className="font-medium">Don't worry!</span> We'll
-                automatically load the default playlist so you can keep enjoying
-                music.
-              </p>
-              <div className="flex space-x-4 justify-center">
-                <button
-                  type="button"
-                  onClick={handleConfirmDelete}
-                  className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-red-500 font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border-1 border-red-500 hover:scale-105 shadow-lg hover:shadow-red-500/25 cursor-pointer"
-                >
-                  Clear
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancelDelete}
-                  className="w-full sm:w-1/4 px-6 sm:px-8 py-3 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base transition-all duration-200 bg-black/10 border-1 border-gray-500 hover:scale-105 shadow-lg hover:shadow-gray-500/25 cursor-pointer"
-                >
-                  Keep
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
