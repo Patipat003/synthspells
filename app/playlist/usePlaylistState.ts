@@ -123,6 +123,12 @@ const defaultSongs: Song[] = [
     thumbnail: "https://i.ytimg.com/vi/gtpCl_QWaLg/hqdefault.jpg",
   },
   {
+    title: "ONE CHANCE",
+    artist: "INTERWORLD",
+    videoId: "q1tAnXBUpno",
+    thumbnail: "https://i.ytimg.com/vi/q1tAnXBUpno/hqdefault.jpg",
+  },
+  {
     title: "RAPTURE",
     artist: "INTERWORLD",
     videoId: "i5zR6toPVQ8",
