@@ -51,6 +51,12 @@ const defaultSongs: Song[] = [
     thumbnail: "https://i.ytimg.com/vi/dSPiDFZmAnQ/hqdefault.jpg",
   },
   {
+    title: "ENDLESS LOVE",
+    artist: "DVRST",
+    videoId: "fC1HF29n9UA",
+    thumbnail: "https://i.ytimg.com/vi/fC1HF29n9UA/hqdefault.jpg",
+  },
+  {
     title: "Close Eyes",
     artist: "DVRST",
     videoId: "ao4RCon11eY",
