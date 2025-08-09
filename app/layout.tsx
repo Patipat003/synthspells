@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { ReactNode } from "react";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import PetWidget from "@/components/PetWidget";
 import { Metadata } from "next";
 import { Toaster } from "sonner";
@@ -54,21 +53,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-gradient-to-br from-violet-950 via-indigo-950 to-violet-950 bg-no-repeat min-h-screen">
-        <ThemeProvider>
-          <Toaster
-            position="bottom-left"
-            toastOptions={{
-              style: {
-                background: "transparent",
-                color: "red",
-                border: "1px solid red",
-              },
-            }}
-          />
-          <Navbar />
-          {children}
-          <PetWidget />
-        </ThemeProvider>
+        <Toaster
+          position="bottom-left"
+          toastOptions={{
+            style: {
+              background: "transparent",
+              color: "red",
+              border: "1px solid red",
+            },
+          }}
+        />
+        <Navbar />
+        {children}
+        <PetWidget />
       </body>
     </html>
   );

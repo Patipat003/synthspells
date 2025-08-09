@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 type Song = {
   title: string;
@@ -139,19 +140,7 @@ export default function PlaylistSidebar({
             >
               <div className="text-center">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-violet-500/20 to-pink-500/20 flex items-center justify-center border border-violet-500/30">
-                  <svg
-                    className="w-10 h-10 text-violet-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    ></path>
-                  </svg>
+                  <FaRegTrashAlt className="text-4xl text-violet-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">
                   Clear Current Playlist?
