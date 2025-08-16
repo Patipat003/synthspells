@@ -19,7 +19,8 @@ Examples:
 
 It also supports direct playlist URLs or prompt-based routes:
 
->- https://synthspells.vercel.app/city-pop-80s-japan  
+>- https://synthspells.vercel.app/city-pop-80s-japan
+>- https://synthspells.vercel.app/sawano-hiroyuki-ost
 >- https://synthspells.vercel.app/PLRswASHacZ9V1lIVh-IGESiRFlYoL8I-y  
 
 How it works:
