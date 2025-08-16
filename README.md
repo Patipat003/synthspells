@@ -1,6 +1,6 @@
 # 🎶 SynthSpells
 
-**AI-powered playlist summoner** — Prompt เพื่อค้นหาเพลย์ลิสต์จาก YouTube ผ่าน AI
+**AI-powered playlist summoner** — Generate YouTube playlists from text prompts
 
 ![App Preview](./public/cover.png)
 
@@ -9,24 +9,34 @@ https://synthspells.vercel.app/
 
 ## What is SynthSpells?
 
-SynthSpells เป็นเว็บแอปที่ให้คุณ “สร้างเพลย์ลิสต์” ได้จากอารมณ์หรือสถานการณ์ เช่น
+SynthSpells is a web app that lets you **create playlists** based on moods or situations.  
+Simply type what you want, and the app will fetch a matching YouTube playlist.
 
-> *"chill song for studying"*  
+Examples:
 
-1. **ChatGPT** แปลงข้อความนี้ให้กลายเป็น **ชื่อเพลย์ลิสต์** ที่น่าจะมีอยู่บน YouTube (เช่น `lofi chill cafe playlist`)
-2. ใช้ **YouTube API** ค้นหา playlist นั้น
-3. list รายการเพลงจาก playlist พร้อมเล่นได้ทันที
+>- *"Chill songs for studying"*
+>- *"Anime songs"*
+
+It also supports direct playlist URLs or prompt-based routes:
+
+>- https://synthspells.vercel.app/city-pop-80s-japan  
+>- https://synthspells.vercel.app/PLRswASHacZ9V1lIVh-IGESiRFlYoL8I-y  
+
+How it works:
+1. **ChatGPT** converts your text prompt into a potential YouTube playlist name (e.g., `lofi chill cafe playlist`)  
+2. The **YouTube Data API** searches for the playlist  
+3. The app lists the songs and lets you play them instantly  
 
 ## 🧱 Tech Stack
 
-- **Tools**: Next.js + TypeScript + Tailwind CSS
+- **Framework**: Next.js + TypeScript + Tailwind CSS  
 - **AI**: OpenAI ChatGPT  
-- **Music API**: YouTube Data API
-- **Hosting**: Vercel
+- **Music API**: YouTube Data API  
+- **Hosting**: Vercel  
 
 ## 🚀 Getting Started
 
-**Create `.env.local` file**
+**Create a `.env.local` file**
 
 ```env
 OPENAI_API_KEY=your_openai_key
