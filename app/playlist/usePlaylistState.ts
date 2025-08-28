@@ -160,7 +160,7 @@ export function usePlaylistState() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
-  const [volume, setVolume] = useState(35);
+  const [volume, setVolume] = useState(50);
   const [prompt, setPrompt] = useState("");
   const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
   const [isClient, setIsClient] = useState(false);
